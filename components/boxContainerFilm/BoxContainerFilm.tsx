@@ -10,7 +10,7 @@ export interface listImage {
 
 const ImageSlider: React.FC<listImage> = ({images}) => {
   
-    const scrollContainer = React.useRef<HTMLDivElement>();
+    const scrollContainer = React.useRef<HTMLDivElement>(null);
 
   const scrollLeft = () => {
     
