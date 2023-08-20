@@ -1,0 +1,13 @@
+@import '../../styles/variables';
+.selected{
+    background-image: linear-gradient(to right, $BGColorNavItemSelected1, $BGColorNavItemSelected2);
+}
+.defautItem {
+    color: $TextColor !important;
+}
+:export {
+    textSelectedColor: $TextSelectedColor;
+    BGColor: $BGColor;
+    textColor: $TextColor;
+    BGColorBody: $BGColorBody;
+}

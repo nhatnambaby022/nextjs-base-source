@@ -1,0 +1,90 @@
+@import '../../styles/variables';
+.slider-images::-webkit-scrollbar {
+    display: none;
+}
+
+/* Track */
+.slider-images::-webkit-scrollbar-track {
+    height: 4px;
+    border-radius: 50vh;
+    background: #f1f1f1; 
+}
+
+/* Handle */
+.slider-images::-webkit-scrollbar-thumb {
+    height: 4px;
+    border-radius: 50vh;
+    background: #888; 
+}
+
+/* Handle on hover */
+.slider-images::-webkit-scrollbar-thumb:hover {
+    height: 4px;
+    border-radius: 50vh;
+    background: #555; 
+}
+.image-slider {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+  
+
+
+.slider-images {
+    display: flex;
+    overflow-x: auto;
+    border-radius: 16px;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory; 
+}
+
+.slider-images img {
+    max-width: 100%;
+    height: auto;
+    margin-right: 10px;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.slider-images img.active {
+    opacity: 1;
+}
+
+.prev-button {
+    display: none;
+    border-radius: 12px;
+    padding: 12px;
+    font-size: 24px;
+    background: rgba($color: #f3f1f1, $alpha: 0.4);
+    border: none;
+    cursor: pointer;
+    position: absolute;
+    left: 10px;
+    top:  50% - 10;
+}
+
+.next-button {
+    display: none;
+    border-radius: 12px;
+    padding: 12px;
+    font-size: 24px;
+    background: rgba($color: #f3f1f1, $alpha: 0.4);
+    border: none;
+    cursor: pointer;
+    position: absolute;
+    right: 10px;
+    top:  50% - 10;
+}
+
+.image-slider:hover .next-button{
+    display: block;
+}
+.image-slider:hover .prev-button{
+    display: block;
+}
+:export {
+    textSelectedColor: $TextSelectedColor;
+    BGColor: $BGColor;
+    textColor: $TextColor;
+    BGColorBody: $BGColorBody;
+}
