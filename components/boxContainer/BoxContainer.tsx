@@ -24,7 +24,7 @@ const MyFilm:React.FC<{tag:Tag, isFirst:boolean}> = ({tag,isFirst}) =>{
       onMouseLeave={onMouseLeave}
     >
       <img
-        src={`/tmp/${tag.path}`}
+        src={`/tmp/${tag.image}`}
         style={{
           height: 300,
           width: 200,
@@ -37,7 +37,7 @@ const MyFilm:React.FC<{tag:Tag, isFirst:boolean}> = ({tag,isFirst}) =>{
         width:200,
         top:0,
         left: isFirst ? 0 : 10,
-        backgroundImage:`url(/tmp/${tag.path})`,
+        backgroundImage:`url(/tmp/${tag.image})`,
         display: isHover ? "block" : "none"
       }} className={style.tagbg} >
       </div>
@@ -108,7 +108,7 @@ const MySound:React.FC<{tag:Tag, isFirst:boolean}> = ({tag,isFirst}) =>{
       cursor:"pointer"
     }}>
       <img
-        src={`/tmp/${tag.path}`}
+        src={`/tmp/${tag.image}`}
         style={{
           height: 165,
           width: 165,
@@ -186,7 +186,7 @@ export default function BoxContainer (props: IAppProps) {
         width:"calc(100vw - 48px)",
         marginTop:"24px",
         color:style.textColor,
-        maxWidth:"1200px"
+        maxWidth:"1260px"
     }}>
         <span>Hot {props.isFilm ? "movies" : "song"}</span>
         <ImageSlider  list={ListFile} isFilm={props.isFilm}/>

@@ -332,7 +332,7 @@ export default function LayOutDefault(props: myprops) {
               color: props.currentRoute == "Home" ? style.textSelectedColor : style.textColor
             }}>
               <ListItemIcon>
-                <img src='/home.svg' />
+                <HomeOutlinedIcon style={{color: props.currentRoute == "Home" ? style.textSelectedColor : style.textColor}}/>
               </ListItemIcon>
               <ListItemText primary={'Home'} />
             </ListItemButton>
@@ -356,7 +356,9 @@ export default function LayOutDefault(props: myprops) {
               color: props.currentRoute == "Trending" ? style.textSelectedColor : style.textColor
             }}>
               <ListItemIcon>
-                <img src='/trending.svg'/>
+                <TrendingUpOutlinedIcon style={{
+              color: props.currentRoute == "Trending" ? style.textSelectedColor : style.textColor
+            }} />
               </ListItemIcon>
               <ListItemText primary={'Trending'} />
             </ListItemButton>
@@ -367,7 +369,10 @@ export default function LayOutDefault(props: myprops) {
               color: props.currentRoute == "Popular" ? style.textSelectedColor : style.textColor
             }}>
               <ListItemIcon>
-                <img src='/popular.svg'/>
+                <Diversity1Icon style={{
+                    color: props.currentRoute == "Popular" ? style.textSelectedColor : style.textColor
+                  }}
+                />
               </ListItemIcon>
               <ListItemText primary={'Popular'} />
             </ListItemButton>
@@ -375,39 +380,53 @@ export default function LayOutDefault(props: myprops) {
         </List>
         <Divider style={{backgroundColor:style.textColor}} />
         <List>
-        <ListItem disablePadding>
-          <ListItemButton>
-            <ListItemText primary={'FIND BY'} style={{
-              fontSize:"10px"
-            }} />
-          </ListItemButton>
-        </ListItem>
-          <ListItem disablePadding className={props.currentRoute == "New" ? style.selected : ""}>
-            <ListItemButton style={{
-              color: props.currentRoute == "New" ? style.textSelectedColor : style.textColor
-            }}>
-              <ListItemIcon>
-                <img src='/new.svg'/>
-              </ListItemIcon>
-              <ListItemText primary={'New'} />
+          <ListItem disablePadding>
+            <ListItemButton>
+              <ListItemText primary={'FIND BY'} style={{
+                fontSize:"10px"
+              }} />
             </ListItemButton>
           </ListItem>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
-            <ListItem key={text} disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon style={{color:style.textColor}} /> : <MailIcon style={{color:style.textColor}}  />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItemButton>
-            </ListItem>
-            
-          ))}
-          
+          <ListItem disablePadding className={props.currentRoute == "Year" ? style.selected : ""}>
+            <ListItemButton style={{
+              color: props.currentRoute == "Year" ? style.textSelectedColor : style.textColor
+            }}>
+              <ListItemIcon>
+                <PendingActionsIcon style={{
+                  color: props.currentRoute == "Year" ? style.textSelectedColor : style.textColor
+                }}/>
+              </ListItemIcon>
+              <ListItemText primary={'Year'} />
+            </ListItemButton>
+          </ListItem>
+          <ListItem disablePadding className={props.currentRoute == "Movie genres" ? style.selected : ""}>
+            <ListItemButton style={{
+              color: props.currentRoute == "Movie genres" ? style.textSelectedColor : style.textColor
+            }}>
+              <ListItemIcon>
+                <MovieFilterIcon style={{
+                  color: props.currentRoute == "Movie genres" ? style.textSelectedColor : style.textColor
+                }}/>
+              </ListItemIcon>
+              <ListItemText primary={'Movie genres'} />
+            </ListItemButton>
+          </ListItem>
+          <ListItem disablePadding className={props.currentRoute == "Nation" ? style.selected : ""}>
+            <ListItemButton style={{
+              color: props.currentRoute == "Nation" ? style.textSelectedColor : style.textColor
+            }}>
+              <ListItemIcon>
+                <FlagIcon style={{
+                  color: props.currentRoute == "Nation" ? style.textSelectedColor : style.textColor
+                }}/>
+              </ListItemIcon>
+              <ListItemText primary={'Nation'} />
+            </ListItemButton>
+          </ListItem>
         </List>
       </Drawer>
       <Main open={open} style={{
-        backgroundColor: style.BGColorBody
+        backgroundColor: style.BGColorBody,
       }}>
         <DrawerHeader style={{height:"80px"}}/>
         {props.child}
