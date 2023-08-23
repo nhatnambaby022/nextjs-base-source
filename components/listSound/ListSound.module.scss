@@ -1,0 +1,8 @@
+@import '../../styles/variables';
+
+:export {
+    textSelectedColor: $TextSelectedColor;
+    BGColor: $BGColor;
+    textColor: $TextColor;
+    BGColorBody: $BGColorBody;
+}
