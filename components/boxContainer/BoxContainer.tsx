@@ -1,5 +1,6 @@
+import getListFilm from '@/api/getListFilm';
 import { Tag } from '@/pages/index';
-import { Button } from '@mui/material';
+import { Button, CircularProgress } from '@mui/material';
 import { display } from '@mui/system/Box';
 import * as React from 'react';
 import style from "./BoxContainerFilm.module.scss"
@@ -19,12 +20,13 @@ const MyFilm:React.FC<{tag:Tag, isFirst:boolean}> = ({tag,isFirst}) =>{
   return (<>
     <div style={{
       position:"relative",
+      
     }}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
       <img
-        src={`/tmp/${tag.image}`}
+        src={tag.thumbnail}
         style={{
           height: 300,
           width: 200,
@@ -32,15 +34,15 @@ const MyFilm:React.FC<{tag:Tag, isFirst:boolean}> = ({tag,isFirst}) =>{
           marginLeft:isFirst ? "" : "10px"
         }}
       />
-      <div style={{
+      <img src={tag.thumbnail} style={{
         height:300,
         width:200,
         top:0,
         left: isFirst ? 0 : 10,
-        backgroundImage:`url(/tmp/${tag.image})`,
-        display: isHover ? "block" : "none"
-      }} className={style.tagbg} >
-      </div>
+        objectFit:"cover",
+        display: isHover ? "block" : "none",
+        scale: isHover ? 1.2 : 1
+      }} className={style.tagbg} />
       <div style={{
         height:300,
         width:200,
@@ -62,19 +64,19 @@ const MyFilm:React.FC<{tag:Tag, isFirst:boolean}> = ({tag,isFirst}) =>{
           fontSize:"16px",
           fontWeight:"bold",
         }}>
-          {tag.title}
+          {tag.name}
         </div>
         <div style={{
           fontSize:"12px",
           paddingTop:"10px"
         }}>
-          {tag.details}
+          {`${tag.soundtrack_count} songs`}
         </div>
         <div style={{
           fontSize:"12px",
           paddingTop:"10px"
         }}>
-          {tag.description}
+          {tag.slug}
         </div>
       </div>
 
@@ -108,7 +110,7 @@ const MySound:React.FC<{tag:Tag, isFirst:boolean}> = ({tag,isFirst}) =>{
       cursor:"pointer"
     }}>
       <img
-        src={`/tmp/${tag.image}`}
+        src={tag.thumbnail}
         style={{
           height: 165,
           width: 165,
@@ -121,14 +123,14 @@ const MySound:React.FC<{tag:Tag, isFirst:boolean}> = ({tag,isFirst}) =>{
         fontWeight:"bold",
         width:165,
         textOverflow:"ellipsis"
-      }}>{tag.title}</h4>
+      }}>{tag.name}</h4>
 
       <span style={{
         fontSize:"14px",
         fontWeight:"100",
         width:165,
         textOverflow:"ellipsis"
-      }}>{tag.author}</span>
+      }}>{tag.author ? tag.author : ""}</span>
     </div>
   </>)
 }

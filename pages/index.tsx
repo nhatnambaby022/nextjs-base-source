@@ -5,131 +5,40 @@ import styles from '@/styles/Home.module.css'
 import LayOutDefault from '@/components/LayOut/LayOutDefault'
 import BoxContainer from '@/components/boxContainer/BoxContainer'
 import BoxList from '@/components/boxList/BoxList'
-
+import { CircularProgress } from '@mui/material'
+import getListFilm from '@/api/getListFilm'
+import * as React from 'react';
 export interface Tag{
-  title:string,
-  image:string,
-  details?:string,
-  description?:string,
+  id:string,
+  name:string,
+  thumbnail:string,
+  slug?:string,
+  soundtrack_count: number,
   author?:string
 }
 function Container(){
-  const ListFilm=[
-    { title:"Thor love and thunder (2022)",
-      image:"film1.png",
-      details:"20 songs \nActions, science fiction1",
-      description:"Thor enlists the help of Valkyrie, Korg and ex-girlfriend Jane Foster to fight Gorr the God Butcher, who intends to make the gods extinct."
-    },{
-      title:"Thor love and thunder (2022)",
-      image:"film2.png",
-      details:"20 songs \nActions, science fiction4",
-      description:"Thor enlists the help of Valkyrie, Korg and ex-girlfriend Jane Foster to fight Gorr the God Butcher, who intends to make the gods extinct."
-    },{
-      title:"Thor love and thunder (2022)",
-      image:"film3.png",
-      details:"20 songs \nActions, science fiction3",
-      description:"Thor enlists the help of Valkyrie, Korg and ex-girlfriend Jane Foster to fight Gorr the God Butcher, who intends to make the gods extinct."
-    },{
-      title:"Thor love and thunder (2022)",
-      image:"film4.png",
-      details:"20 songs \nActions, science fiction2",
-      description:"Thor enlists the help of Valkyrie, Korg and ex-girlfriend Jane Foster to fight Gorr the God Butcher, who intends to make the gods extinct."
-    },{
-      title:"Thor love and thunder (2022)",
-      image:"film5.png",
-      details:"20 songs \nActions, science fiction3",
-      description:"Thor enlists the help of Valkyrie, Korg and ex-girlfriend Jane Foster to fight Gorr the God Butcher, who intends to make the gods extinct."
-    },{
-      title:"Thor love and thunder (2022)",
-      image:"film1.png",
-      details:"20 songs \nActions, science fiction5",
-      description:"Thor enlists the help of Valkyrie, Korg and ex-girlfriend Jane Foster to fight Gorr the God Butcher, who intends to make the gods extinct."
-    },{
-      title:"Thor love and thunder (2022)",
-      image:"film2.png",
-      details:"20 songs \nActions, science fiction6",
-      description:"Thor enlists the help of Valkyrie, Korg and ex-girlfriend Jane Foster to fight Gorr the God Butcher, who intends to make the gods extinct."
-    },{
-      title:"Thor love and thunder (2022)",
-      image:"film3.png",
-      details:"20 songs \nActions, science fiction4",
-      description:"Thor enlists the help of Valkyrie, Korg and ex-girlfriend Jane Foster to fight Gorr the God Butcher, who intends to make the gods extinct."
-    },{
-      title:"Thor love and thunder (2022)",
-      image:"film4.png",
-      details:"20 songs \nActions, science fiction7",
-      description:"Thor enlists the help of Valkyrie, Korg and ex-girlfriend Jane Foster to fight Gorr the God Butcher, who intends to make the gods extinct."
-    },{
-      title:"Thor love and thunder (2022)",
-      image:"film5.png",
-      details:"20 songs \nActions, science fiction4",
-      description:"Thor enlists the help of Valkyrie, Korg and ex-girlfriend Jane Foster to fight Gorr the God Butcher, who intends to make the gods extinct."
-    },
-  ]
 
-  const ListSound=[
-    {
-      title:"Pink Venom",
-      image:"song1.png",
-      details:"20 songs \nActions, science fiction",
-      description:"Thor enlists the help of Valkyrie, Korg and ex-girlfriend Jane Foster to fight Gorr the God Butcher, who intends to make the gods extinct.",
-      author: "Black pink"
-    },{
-      title:"Night Dance",
-      image:"song2.png",
-      details:"20 songs \nActions, science fiction",
-      description:"Thor enlists the help of Valkyrie, Korg and ex-girlfriend Jane Foster to fight Gorr the God Butcher, who intends to make the gods extinct.",
-      author: "Black pink"
-    },{
-      title:"Tilte",
-      image:"song3.png",
-      details:"20 songs \nActions, science fiction",
-      description:"Thor enlists the help of Valkyrie, Korg and ex-girlfriend Jane Foster to fight Gorr the God Butcher, who intends to make the gods extinct.",
-      author: "Black pink"
-    },{
-      title:"Tilte",
-      image:"song4.png",
-      details:"20 songs \nActions, science fiction",
-      description:"Thor enlists the help of Valkyrie, Korg and ex-girlfriend Jane Foster to fight Gorr the God Butcher, who intends to make the gods extinct.",
-      author: "Black pink"
-    },{
-      title:"Tilte",
-      image:"song5.png",
-      details:"20 songs \nActions, science fiction",
-      description:"Thor enlists the help of Valkyrie, Korg and ex-girlfriend Jane Foster to fight Gorr the God Butcher, who intends to make the gods extinct.",
-      author: "Black pink"
-    },{
-      title:"Tilte",
-      image:"song1.png",
-      details:"20 songs \nActions, science fiction",
-      description:"Thor enlists the help of Valkyrie, Korg and ex-girlfriend Jane Foster to fight Gorr the God Butcher, who intends to make the gods extinct.",
-      author: "YOASOBI"
-    },{
-      title:"Tilte",
-      image:"song2.png",
-      details:"20 songs \nActions, science fiction",
-      description:"Thor enlists the help of Valkyrie, Korg and ex-girlfriend Jane Foster to fight Gorr the God Butcher, who intends to make the gods extinct.",
-      author: "Artist"
-    },{
-      title:"Tilte",
-      image:"song3.png",
-      details:"20 songs \nActions, science fiction",
-      description:"Thor enlists the help of Valkyrie, Korg and ex-girlfriend Jane Foster to fight Gorr the God Butcher, who intends to make the gods extinct.",
-      author: "Artist"
-    },{
-      title:"Tilte",
-      image:"song4.png",
-      details:"20 songs \nActions, science fiction",
-      description:"Thor enlists the help of Valkyrie, Korg and ex-girlfriend Jane Foster to fight Gorr the God Butcher, who intends to make the gods extinct.",
-      author: "Artist"
-    },{
-      title:"Tilte",
-      image:"song5.png",
-      details:"20 songs \nActions, science fiction",
-      description:"Thor enlists the help of Valkyrie, Korg and ex-girlfriend Jane Foster to fight Gorr the God Butcher, who intends to make the gods extinct.",
-      author: "Artist"
-    },
-  ]
+  const [isLoading, setIsLoading] = React.useState(true);
+  const [listFilm, setListFilm] = React.useState([])
+
+    const fetchData = async ()=>{
+      const response = await getListFilm();
+      if (response.status == 200) {
+        setListFilm(response.data.data)
+        setIsLoading(false)
+      }
+      
+    }
+
+    React.useEffect(()=>{
+      fetchData()
+    },[])
+
+    if (isLoading) {
+      return (
+        <CircularProgress />
+      )
+    }
 
   return (
     <div style={{
@@ -149,9 +58,9 @@ function Container(){
           maxWidth:"1260px"
         }} />
       </div>
-      <BoxContainer isFilm={true} list={ListFilm}/>
-      <BoxList ListItems={ListFilm} />
-      <BoxContainer isFilm={false} list={ListSound}/>
+      <BoxContainer isFilm={true} list={listFilm}/>
+      <BoxList ListItems={listFilm} />
+      <BoxContainer isFilm={false} list={listFilm}/>
     </div>
   )
 }
