@@ -4,13 +4,14 @@ import * as React from 'react';
 import style from "./BoxList.module.scss"
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import getListFilm from '@/api/getListFilm';
-import axios from 'axios';
+import Link from "next/link";
 export interface IAppProps {
     ListItems: Tag[]
 }
 
 const Item: React.FC<{tag:Tag}> = ({tag}) =>{
     return (<>
+    <Link href={`/sound/${tag.id}`}>
         <div style={{
             margin:"0px 10px 10px 0px",
             height:244,
@@ -40,6 +41,7 @@ const Item: React.FC<{tag:Tag}> = ({tag}) =>{
                 </span>
             </div>
         </div>
+    </Link>
     </>)
 }
 const darkTheme = createTheme ({
@@ -53,7 +55,7 @@ const darkTheme = createTheme ({
 export default function BoxList (props: IAppProps) {
     const [isLoading, setIsLoading] = React.useState(true);
     const [listFilm, setListFilm] = React.useState({
-        data:[],
+        data: [],
         last_page:0
     });
 
@@ -110,7 +112,7 @@ export default function BoxList (props: IAppProps) {
                     }}>
                         {
                             listFilm.data.map((item)=>
-                                <Item tag={item}/>
+                                     <Item tag={item}/>
                             )
                         }
                     </div>

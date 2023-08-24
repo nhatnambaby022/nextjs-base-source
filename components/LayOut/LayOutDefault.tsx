@@ -6,7 +6,6 @@ import CssBaseline from '@mui/material/CssBaseline';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
-import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -16,8 +15,6 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
 import { ReactNode } from 'react';
 import style from './layout.module.scss';
 import NewReleasesIcon from '@mui/icons-material/NewReleases';
@@ -30,10 +27,8 @@ import FlagIcon from '@mui/icons-material/Flag';
 import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
 import Autocomplete from '@mui/material/Autocomplete';
-import SearchIcon from '@mui/icons-material/Search';
-import { borderRadius, display } from '@mui/system';
 import Button from '@mui/material/Button';
-
+import Link from "next/link";
 
 
 
@@ -327,16 +322,19 @@ export default function LayOutDefault(props: myprops) {
           </IconButton>
         </DrawerHeader>
         <List >
-          <ListItem disablePadding className={props.currentRoute == "Home" ? style.selected : ""}>
-            <ListItemButton style={{
-              color: props.currentRoute == "Home" ? style.textSelectedColor : style.textColor
-            }}>
-              <ListItemIcon>
-                <HomeOutlinedIcon style={{color: props.currentRoute == "Home" ? style.textSelectedColor : style.textColor}}/>
-              </ListItemIcon>
-              <ListItemText primary={'Home'} />
-            </ListItemButton>
-          </ListItem>
+          <Link href={"/"}>
+            <ListItem disablePadding className={props.currentRoute == "Home" ? style.selected : ""}>
+              <ListItemButton style={{
+                color: props.currentRoute == "Home" ? style.textSelectedColor : style.textColor
+              }}>
+                <ListItemIcon>
+                  <HomeOutlinedIcon style={{color: props.currentRoute == "Home" ? style.textSelectedColor : style.textColor}}/>
+                </ListItemIcon>
+                <ListItemText primary={'Home'} />
+              </ListItemButton>
+            </ListItem>
+          </Link>
+          
 
           <ListItem disablePadding className={props.currentRoute == "New" ? style.selected : ""}>
             <ListItemButton style={{

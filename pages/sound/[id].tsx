@@ -4,7 +4,8 @@ import { CircularProgress } from '@mui/material'
 import * as React from 'react';
 import { useRouter } from 'next/router';
 import ListSound from '@/components/listSound/ListSound';
-import getFilmBySlug from '@/api/getFilmBySlug';
+import getFilmById from '@/api/getFilmById';
+import {Helmet} from "react-helmet";
 export interface Tag{
   id:string,
   name:string,
@@ -29,30 +30,36 @@ function Container(){
     "soundtrack_count": 16}
     const router = useRouter()
 
-    const {id} = router.query
-    // const [isLoading, setIsLoading] = React.useState(true);
-    // const [filmDetails, setFilmDetails] = React.useState([])
-
-    // const fetchData = async ()=>{
-    //     const response = await getFilmBySlug(playList.slug);
-    //     if (response.status == 200) {
-    //         setFilmDetails(response.data.data) 
-    //         setIsLoading(false)
-    //     }
+    const initTag: Tag = {
+      id:"",
+      name:"",
+      thumbnail:"",
+      soundtrack_count:0
+    };
+    const [isLoading, setIsLoading] = React.useState(true);
+    const [filmDetails, setFilmDetails] = React.useState(initTag)
+    const fetchData = async ()=>{
+        const {id} = router.query
+        if (!id) return
+        const response = await getFilmById(id?.toString());
+        if (response.status == 200) {
+            setFilmDetails(response.data) 
+            setIsLoading(false)
+        }
         
-    // }
+    }
 
-    // React.useEffect(()=>{
-    //     fetchData()
-    // },[])
+    React.useEffect(()=>{
+        fetchData()
+    },[router.query.id])
 
-    // if (isLoading) {
-    //     return (
-    //     <CircularProgress />
-    //     )
-    // }
+    if (isLoading) {
+        return (
+        <CircularProgress />
+        )
+    }
 
-  return (
+  if (filmDetails) return (
     <div>
         <div style={{
         width:"100%",
@@ -64,10 +71,15 @@ function Container(){
         alignItems:"center",
         justifyItems:"center",
         }}>
-            <ListSound playlist={playList}/>
+            <ListSound playlist={filmDetails}/>
         </div>
     </div>
   )
+  else {
+    return(
+      <h1 style={{color:"white"}}>Not Found</h1>
+    )
+  }
 }
 
 export default function Sound() {
@@ -81,6 +93,7 @@ export default function Sound() {
         <link rel="preconnect" href="https://fonts.googleapis.com"/>
         <link rel="preconnect" href="https://fonts.gstatic.com"/>
         <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&display=swap" rel="stylesheet"/>
+        
       </Head>
       <LayOutDefault child={<Container />} currentRoute="Home"/>
     </div>

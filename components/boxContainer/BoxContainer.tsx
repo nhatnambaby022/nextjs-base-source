@@ -3,9 +3,8 @@ import { Tag } from '@/pages/index';
 import { Button, CircularProgress } from '@mui/material';
 import { display } from '@mui/system/Box';
 import * as React from 'react';
-import style from "./BoxContainerFilm.module.scss"
-
-
+import style from "./BoxContainerFilm.module.scss";
+import Link from "next/link";
 
 
 
@@ -79,8 +78,7 @@ const MyFilm:React.FC<{tag:Tag, isFirst:boolean}> = ({tag,isFirst}) =>{
           {tag.slug}
         </div>
       </div>
-
-      <button style={{
+      <Link href={`/sound/${tag.id}`}><button style={{
           borderRadius:"50%",
           backgroundColor:"rgba(255,255,255,0.2)",
           width:"44px",
@@ -91,13 +89,15 @@ const MyFilm:React.FC<{tag:Tag, isFirst:boolean}> = ({tag,isFirst}) =>{
           bottom:"15px",
           left: isFirst ? "20px" : "25px",
           display: isHover ? "block" : "none",
-        }} className={style.btnPlay}>
+        }} className={style.btnPlay}
+        >
           <img src='/playButton.png'style={{
             width:"44px",
             height:"44px",
             borderRadius:"50%",
           }}/>
-        </button>
+        </button></Link>
+      
     </div>
   </>)
 }
