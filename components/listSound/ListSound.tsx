@@ -52,7 +52,7 @@ export const MediaControlCard:React.FC<MediaControlProp> = ({isPlaying,setPlayin
   
     return (
       <Card sx={{ display: 'flex',marginTop:"12px", width:"100%", maxWidth:"1200px"}}>
-        <Box sx={{ display: 'flex', flexDirection: 'column' , width:"100%"}}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', width:"100%" }}>
           <CardContent sx={{ flex: '1 0 auto' }}>
             <Typography component="div" variant="h5">
               {audio?.name}
@@ -61,12 +61,28 @@ export const MediaControlCard:React.FC<MediaControlProp> = ({isPlaying,setPlayin
             {audio?.artist}
             </Typography>
           </CardContent>
-          <Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1 }}>
-            <IconButton aria-label="play/pause" onClick={setPlaying}>
-              {isPlaying ? <PauseIcon sx={{ height: 38, width: 38 }}/> : <PlayArrowIcon sx={{ height: 38, width: 38 }} />}
-            </IconButton>
-            <Box sx={{ width: '100%', maxWidth:"300px",marginTop:"8px" }}>
-                <Slider value={time*100} aria-label="Temperature" color="secondary" onChange={(e:Event, newvalue:number | number[])=>{setCurrentTime(newvalue); }}/>
+          <Box style={{width:"100%",display: 'flex',flexWrap:"wrap", justifyContent:"space-between"}}>
+            <Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1, width:"60%" }}>
+                <IconButton aria-label="play/pause" onClick={setPlaying}>
+                    {isPlaying ? <PauseIcon sx={{ height: 38, width: 38 }}/> : <PlayArrowIcon sx={{ height: 38, width: 38 }} />}
+                </IconButton>
+                <Box sx={{ minWidth: '250px', width: "100%",margin:"8px 8px 0px 0px" }}>
+                    <Slider value={time*100} aria-label="Temperature" color="secondary" onChange={(e:Event, newvalue:number | number[])=>{setCurrentTime(newvalue); setPlaying}}/>
+                </Box>
+            </Box>
+            <Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1 }}>
+                <IconButton>
+                    <img src="/youtube.png" alt="youtube" style={{width:"54px"}}/>
+                </IconButton>
+                <IconButton>
+                <img src="/spotify.png" alt="spotify" />
+                </IconButton>
+                <IconButton>
+                    <img src="/itune.png" alt="itune" />
+                </IconButton>
+                <IconButton>
+                    <img src="/apple.png" alt="apple"/>
+                </IconButton>
             </Box>
           </Box>
         </Box>
@@ -104,9 +120,10 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({ src, onPlay,audio }) => {
             if (audioRef.current){
                 audioRef.current.currentTime = (time/100)*totalTime
             }
-            setTime(time/100)
-            audioRef.current!.play()
-            setIsPlaying(true)
+            setTime(time/100);
+            onPlay(audioRef.current);
+            audioRef.current!.play();
+            setIsPlaying(true);
         }
         
     }
@@ -124,7 +141,7 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({ src, onPlay,audio }) => {
     
     return (
         <ThemeProvider theme={darkTheme}>
-            <div style={{ width:"100%",display:"flex",alignItems:"center"}}>
+            <div style={{ width:"100%",display:"flex", justifyContent:"center"}}>
                 <audio ref={audioRef} src={src} onPause={()=>{setIsPlaying(false)}} onLoadStart={()=>{setIsPlaying(false); setTime(0)}} onTimeUpdate={()=>setTimeInterval()}/>
                 <MediaControlCard isPlaying={isPlaying} setPlaying={togglePlay} time={time} audio={audio} setCurrentTime={setCurrentTime}/>
             </div>
@@ -150,7 +167,6 @@ export default function ListSound (props: IAppProps) {
             setFilmDetails(response.data) 
             setIsLoading(false)
         }
-        
     }
 
     
@@ -200,7 +216,7 @@ export default function ListSound (props: IAppProps) {
                 alignItems:"center"
             
                 }}>
-                    <div>
+                    <div style={{margin:"12px"}}>
                         <h1>{props.playlist.name}</h1>
                         <div style={{fontSize:"20px", fontStyle:"italic"}}>{`${props.playlist.soundtrack_count} songs`}</div>
                         <div style={{
