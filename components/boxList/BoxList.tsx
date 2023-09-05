@@ -11,7 +11,7 @@ export interface IAppProps {
 
 const Item: React.FC<{tag:Tag}> = ({tag}) =>{
     return (<>
-    <Link href={`/sound/${tag.id}`}>
+    <Link href={`/sound/${tag.slug}`}>
         <div style={{
             margin:"0px 10px 10px 0px",
             height:244,

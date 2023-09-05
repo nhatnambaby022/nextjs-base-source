@@ -78,7 +78,7 @@ const MyFilm:React.FC<{tag:Tag, isFirst:boolean}> = ({tag,isFirst}) =>{
           {tag.slug}
         </div>
       </div>
-      <Link href={`/sound/${tag.id}`}><button style={{
+      <Link href={`/sound/${tag.slug}`}><button style={{
           borderRadius:"50%",
           backgroundColor:"rgba(255,255,255,0.2)",
           width:"44px",
@@ -179,7 +179,8 @@ const ImageSlider: React.FC<listImage> = ({list,isFilm}) => {
 
 export interface IAppProps {
   isFilm:boolean,
-  list:Tag[]
+  list:Tag[],
+  title:string
 }
 export default function BoxContainer (props: IAppProps) {
     const ListFile = props.list
@@ -190,7 +191,7 @@ export default function BoxContainer (props: IAppProps) {
         color:style.textColor,
         maxWidth:"1260px"
     }}>
-        <span>Hot {props.isFilm ? "movies" : "song"}</span>
+        <span>{props.title}</span>
         <ImageSlider  list={ListFile} isFilm={props.isFilm}/>
     </div>
   );

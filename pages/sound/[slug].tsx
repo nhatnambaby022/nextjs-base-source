@@ -39,9 +39,9 @@ function Container(){
     const [isLoading, setIsLoading] = React.useState(true);
     const [filmDetails, setFilmDetails] = React.useState(initTag)
     const fetchData = async ()=>{
-        const {id} = router.query
-        if (!id) return
-        const response = await getFilmById(id?.toString());
+        const {slug} = router.query
+        if (!slug) return
+        const response = await getFilmById(slug?.toString());
         if (response.status == 200) {
             setFilmDetails(response.data) 
             setIsLoading(false)
@@ -51,7 +51,7 @@ function Container(){
 
     React.useEffect(()=>{
         fetchData()
-    },[router.query.id])
+    },[router.query.slug])
 
     if (isLoading) {
         return (
@@ -70,6 +70,7 @@ function Container(){
         justifyContent:"center",
         alignItems:"center",
         justifyItems:"center",
+        
         }}>
             <ListSound playlist={filmDetails}/>
         </div>
