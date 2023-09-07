@@ -5,29 +5,30 @@ import style from "./BoxList.module.scss"
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import getListFilm from '@/api/getListFilm';
 import Link from "next/link";
+import getListShows from '@/api/getListShows';
+import MusicNoteIcon from '@mui/icons-material/MusicNote';
 export interface IAppProps {
-    ListItems: Tag[]
+    ListItems: Tag[],
+    type:string
 }
 
 const Item: React.FC<{tag:Tag}> = ({tag}) =>{
     return (<>
     <Link href={`/sound/${tag.slug}`}>
         <div style={{
-            margin:"0px 10px 10px 0px",
-            height:244,
+            margin:"0px 20px 20px 0px",
             display:"flex",
             flexDirection:"column",
         }}>
             <img src={tag.thumbnail} alt="" className={style.tagMobile} style={{
                 height:200,
                 objectFit:"cover",
-                borderRadius: "12px 12px 0px 0px"
             }}/>
             <div className={style.tagMobile} style={{
                 background:"rgba(33, 33, 33, 1)",
                 display:"flex",
                 justifyContent:"center",
-                borderRadius: "0px 0px 12px 12px",
+                height:60
             }}>
                 <span className={style.tagMobile} style={{
                     fontSize:"16px",
@@ -38,6 +39,14 @@ const Item: React.FC<{tag:Tag}> = ({tag}) =>{
                     whiteSpace:"nowrap"
                 }}>
                     {tag.name}
+                    <br/> 
+                    <div style={{
+                        display:"flex",
+                        alignItems:"center",
+                        minHeight:"24px",
+                        color:"rgba(255, 255, 255, 0.7)",
+                        fontStyle:"italic"
+                    }}><MusicNoteIcon/><span>{tag.soundtrack_count} songs</span> </div>
                 </span>
             </div>
         </div>
@@ -58,13 +67,16 @@ export default function BoxList (props: IAppProps) {
         data: [],
         last_page:0
     });
-
+    let callGetListAPI = getListShows
+    if (props.type == "movies") {
+        callGetListAPI = getListFilm
+    }
     const [page, setPage] = React.useState(1);
 
     const handleChange = async (event: React.ChangeEvent<unknown>, value: number) => {
         setIsLoading(true)
         setPage(value);
-        const response = await getListFilm(value);
+        const response = await callGetListAPI(value);
         if (response.status == 200) {
             setListFilm(response.data)
             setIsLoading(false)
@@ -72,7 +84,7 @@ export default function BoxList (props: IAppProps) {
     };
 
     const fetchData = async ()=>{
-      const response = await getListFilm();
+      const response = await callGetListAPI();
       if (response.status == 200) {
         setListFilm(response.data)
         setIsLoading(false)
@@ -96,19 +108,20 @@ export default function BoxList (props: IAppProps) {
                 marginTop:"24px",
                 color:style.textColor,
             }}>
-                <span>List movies</span>
+                <span>List {props.type}</span>
                 <div style={{
-                    width:"calc(100vw - 48px)",
+                    width:"fit-content",
                     maxWidth:"1260px",
                     display:"flex",
                     flexDirection:"column",
                     justifyContent:"center",
                     alignItems:"center",
+                    marginTop:"24px",
                 }}>
                     <div style={{
                         display:"flex",
                         flexWrap:"wrap",
-                        justifyContent:"center",
+                        justifyContent:"center"
                     }}>
                         {
                             listFilm.data.map((item)=>

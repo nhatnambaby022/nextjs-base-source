@@ -32,7 +32,8 @@ import Link from "next/link";
 import searchFilm from '@/api/searchFilm';
 import { Tag } from '@/pages/index';
 import { useRouter } from 'next/router';
-
+import LiveTvIcon from '@mui/icons-material/LiveTv';
+import SettingsIcon from '@mui/icons-material/Settings';
 
 
 const drawerWidth = 240;
@@ -143,15 +144,21 @@ export default function LayOutDefault(props: myprops) {
           }}>
             <div style={{
               display:"flex",
-              width:"80%",
+              width:"50%",
               minWidth:"88px"
-            }}>
+            }} className={style.leftContent}>
+              <Link href="/">
+                <IconButton>
+                  <img className={style.iconLogo} style={{height:"24px", margin:"5px 20px 0px 0px"}} src="/logotext.svg"/>
+                </IconButton>
+              </Link>
               <IconButton
                 color="inherit"
                 aria-label="open drawer"
                 onClick={handleDrawerOpen}
                 edge="start"
                 sx={{ mr: 2, ...(open && { display: 'none' }) }}
+                className={style.menuIcon}
               >
                 <MenuIcon />
               </IconButton>
@@ -186,10 +193,34 @@ export default function LayOutDefault(props: myprops) {
               </Stack>
             </div>
             <div>
+              <span className={style.listItem}>
+                <Link href="/">
+                  <Button style={{textTransform:"capitalize"}}>
+                        <h3 style={{color: props.currentRoute == "Home" ? style.textSelectedColor : style.textColor}}>Home</h3>
+                  </Button>
+                </Link>
+                <Link href="/movies">
+                  <Button style={{textTransform:"capitalize"}}>
+                        <h3 style={{color: props.currentRoute == "Movies" ? style.textSelectedColor : style.textColor}}>Movies</h3>
+                  </Button>
+                </Link>
+                <Link href="/shows">
+                  <Button style={{textTransform:"capitalize"}}>
+                        <h3 style={{color: props.currentRoute == "Shows" ? style.textSelectedColor : style.textColor}}>Shows</h3>
+                  </Button>
+                </Link>
+                <span style={{
+                  minHeight:"100px",
+                  padding:"8px 0.5px 8px 0.5px",
+                  backgroundColor:"white",
+                  marginLeft:"10px"
+                }}
+                >
+                </span>
+              </span>
               <Button style={{borderRadius:"50%"}}>
                 <img src='/setting.svg' style={{marginLeft:"6px"}}/>
               </Button>
-              
             </div>
           </Toolbar>
         </AppBar>
@@ -233,90 +264,45 @@ export default function LayOutDefault(props: myprops) {
             </ListItem>
           </Link>
           
-
-          <ListItem disablePadding className={props.currentRoute == "New" ? style.selected : ""}>
+          <Link href="/movies">
+            <ListItem disablePadding className={props.currentRoute == "Movies" ? style.selected : ""}>
+              <ListItemButton style={{
+                color: props.currentRoute == "Movies" ? style.textSelectedColor : style.textColor
+              }}>
+                <ListItemIcon>
+                  <MovieFilterIcon style={{
+                    color: props.currentRoute == "Movies" ? style.textSelectedColor : style.textColor
+                  }}/>
+                </ListItemIcon>
+                <ListItemText primary={'Movies'} />
+              </ListItemButton>
+            </ListItem>
+          </Link>
+          
+          <Link href="/shows">
+            <ListItem disablePadding className={props.currentRoute == "Shows" ? style.selected : ""}>
+              <ListItemButton style={{
+                color: props.currentRoute == "Shows" ? style.textSelectedColor : style.textColor
+              }}>
+                <ListItemIcon>
+                  <LiveTvIcon style={{
+                    color: props.currentRoute == "Shows" ? style.textSelectedColor : style.textColor
+                  }}/>
+                </ListItemIcon>
+                <ListItemText primary={'Shows'} />
+              </ListItemButton>
+            </ListItem>
+          </Link>
+          <ListItem disablePadding className={props.currentRoute == "Settings" ? style.selected : ""}>
             <ListItemButton style={{
-              color: props.currentRoute == "New" ? style.textSelectedColor : style.textColor
+              color: props.currentRoute == "Settings" ? style.textSelectedColor : style.textColor
             }}>
               <ListItemIcon>
-                <NewReleasesIcon style={{
-                  color: props.currentRoute == "New" ? style.textSelectedColor : style.textColor
+                <SettingsIcon style={{
+                  color: props.currentRoute == "Settings" ? style.textSelectedColor : style.textColor
                 }}/>
               </ListItemIcon>
-              <ListItemText primary={'New'} />
-            </ListItemButton>
-          </ListItem>
-
-          <ListItem disablePadding className={props.currentRoute == "Trending" ? style.selected : ""}>
-            <ListItemButton style={{
-              color: props.currentRoute == "Trending" ? style.textSelectedColor : style.textColor
-            }}>
-              <ListItemIcon>
-                <TrendingUpOutlinedIcon style={{
-              color: props.currentRoute == "Trending" ? style.textSelectedColor : style.textColor
-            }} />
-              </ListItemIcon>
-              <ListItemText primary={'Trending'} />
-            </ListItemButton>
-          </ListItem>
-
-          <ListItem disablePadding className={props.currentRoute == "Popular" ? style.selected : ""}>
-            <ListItemButton style={{
-              color: props.currentRoute == "Popular" ? style.textSelectedColor : style.textColor
-            }}>
-              <ListItemIcon>
-                <Diversity1Icon style={{
-                    color: props.currentRoute == "Popular" ? style.textSelectedColor : style.textColor
-                  }}
-                />
-              </ListItemIcon>
-              <ListItemText primary={'Popular'} />
-            </ListItemButton>
-          </ListItem>
-        </List>
-        <Divider style={{backgroundColor:style.textColor}} />
-        <List>
-          <ListItem disablePadding>
-            <ListItemButton>
-              <ListItemText primary={'FIND BY'} style={{
-                fontSize:"10px"
-              }} />
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding className={props.currentRoute == "Year" ? style.selected : ""}>
-            <ListItemButton style={{
-              color: props.currentRoute == "Year" ? style.textSelectedColor : style.textColor
-            }}>
-              <ListItemIcon>
-                <PendingActionsIcon style={{
-                  color: props.currentRoute == "Year" ? style.textSelectedColor : style.textColor
-                }}/>
-              </ListItemIcon>
-              <ListItemText primary={'Year'} />
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding className={props.currentRoute == "Movie genres" ? style.selected : ""}>
-            <ListItemButton style={{
-              color: props.currentRoute == "Movie genres" ? style.textSelectedColor : style.textColor
-            }}>
-              <ListItemIcon>
-                <MovieFilterIcon style={{
-                  color: props.currentRoute == "Movie genres" ? style.textSelectedColor : style.textColor
-                }}/>
-              </ListItemIcon>
-              <ListItemText primary={'Movie genres'} />
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding className={props.currentRoute == "Nation" ? style.selected : ""}>
-            <ListItemButton style={{
-              color: props.currentRoute == "Nation" ? style.textSelectedColor : style.textColor
-            }}>
-              <ListItemIcon>
-                <FlagIcon style={{
-                  color: props.currentRoute == "Nation" ? style.textSelectedColor : style.textColor
-                }}/>
-              </ListItemIcon>
-              <ListItemText primary={'Nation'} />
+              <ListItemText primary={'Settings'} />
             </ListItemButton>
           </ListItem>
         </List>

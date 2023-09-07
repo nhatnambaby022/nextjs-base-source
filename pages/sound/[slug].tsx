@@ -6,6 +6,8 @@ import { useRouter } from 'next/router';
 import ListSound from '@/components/listSound/ListSound';
 import getFilmById from '@/api/getFilmById';
 import {Helmet} from "react-helmet";
+import BoxContainer from '@/components/boxContainer/BoxContainer';
+import getFilmPopular from '@/api/getFilmPopular';
 export interface Tag{
   id:string,
   name:string,
@@ -37,7 +39,8 @@ function Container(){
       soundtrack_count:0
     };
     const [isLoading, setIsLoading] = React.useState(true);
-    const [filmDetails, setFilmDetails] = React.useState(initTag)
+    const [filmDetails, setFilmDetails] = React.useState(initTag);
+    const [listFilmPopular, setListFilmPopular] = React.useState([]); 
     const fetchData = async ()=>{
         const {slug} = router.query
         if (!slug) return
@@ -48,9 +51,17 @@ function Container(){
         }
         
     }
-
+    const fetchDataFilmPopular = async ()=>{
+      const response = await getFilmPopular();
+      if (response.status == 200) {
+        setListFilmPopular(response.data.data)
+        setIsLoading(false)
+      }
+      
+    }
     React.useEffect(()=>{
-        fetchData()
+      fetchData();
+      fetchDataFilmPopular();
     },[router.query.slug])
 
     if (isLoading) {
@@ -73,6 +84,7 @@ function Container(){
         
         }}>
             <ListSound playlist={filmDetails}/>
+            <BoxContainer isFilm={true} title="Popular movies" list={listFilmPopular}/>
         </div>
     </div>
   )

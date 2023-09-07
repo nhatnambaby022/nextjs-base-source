@@ -23,21 +23,12 @@ function Container(){
 
   const [isLoading, setIsLoading] = React.useState(true);
   const [listFilm, setListFilm] = React.useState([]);
-  const [listFilmNew, setListFilmNew] = React.useState([]); 
   const [listFilmPopular, setListFilmPopular] = React.useState([]); 
 
     const fetchDataFilm = async ()=>{
       const response = await getListFilm();
       if (response.status == 200) {
         setListFilm(response.data.data)
-        setIsLoading(false)
-      }
-      
-    }
-    const fetchDataFilmNew = async ()=>{
-      const response = await getFilmNew();
-      if (response.status == 200) {
-        setListFilmNew(response.data.data)
         setIsLoading(false)
       }
       
@@ -53,7 +44,6 @@ function Container(){
 
     React.useEffect(()=>{
       fetchDataFilm()
-      fetchDataFilmNew()
       fetchDataFilmPopular()
     },[])
 
@@ -74,16 +64,8 @@ function Container(){
       alignItems:"center",
       justifyItems:"center",
     }}>
-      <div>
-        <img src='/album.png' style={{
-          width:"calc(100vw - 48px)",
-          minWidth:"300px",
-          maxWidth:"1260px"
-        }} />
-      </div>
-      <BoxContainer isFilm={true} title="New movies" list={listFilmNew}/>
-      <BoxList ListItems={listFilm} type="movies"/>
-      <BoxContainer isFilm={true} title="Popular movies" list={listFilmPopular}/>
+      <BoxList ListItems={listFilm} type="movies" />
+      <BoxContainer isFilm={true} title="Hot movies" list={listFilmPopular}/>
     </div>
   )
 }
@@ -100,7 +82,7 @@ export default function Home() {
         <link rel="preconnect" href="https://fonts.gstatic.com"/>
         <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&display=swap" rel="stylesheet"/>
       </Head>
-      <LayOutDefault child={<Container />} currentRoute="Home"/>
+      <LayOutDefault child={<Container />} currentRoute="Movies"/>
     </div>
   )
 }

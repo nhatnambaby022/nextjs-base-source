@@ -343,14 +343,14 @@ export default function ListSound (props: IAppProps) {
                 alignItems:"center"
             
                 }}>
-                    <div style={{ display:"flex",width:"100%", alignItems:"center",justifyContent:"flex-start"}}>
+                    <div style={{ display:"flex",width:"100%", alignItems:"center",justifyContent:"flex-start"}} className={style.mainContent}>
                         <img src={props.playlist.thumbnail} style={{
                             width:"30%",
                             height:"400px",
                             maxWidth:"250px",
                             objectFit:"cover",
                             borderRadius:"12px"
-                        }} />
+                        }} className={style.leftPoster}/>
 
                         <div style={{marginLeft:"12px"}}>
                             <h1>{props.playlist.name}</h1>
@@ -391,6 +391,7 @@ export default function ListSound (props: IAppProps) {
                                                     }}
                                                     defaultValue="defaultValue"
                                                     onChange={async (e)=>{
+                                                        activePlayer?.pause()
                                                         if (e.target.value != "defaultValue"){
                                                             const response = await getEpisodes(playlist.slug,e.target.value)
                                                             if (response.status == 200){
@@ -434,6 +435,7 @@ export default function ListSound (props: IAppProps) {
                                             }}
                                             defaultValue="defaultValue"
                                             onChange={async (e)=>{
+                                                activePlayer?.pause()
                                                 if (e.target.value != "defaultValue"){
                                                     const response = await getShowDetails(playlist.slug,e.target.value);
                                                     if (response.status == 200) {

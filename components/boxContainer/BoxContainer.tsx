@@ -138,7 +138,7 @@ const MySound:React.FC<{tag:Tag, isFirst:boolean}> = ({tag,isFirst}) =>{
 
 export interface listImage {
   list:Tag[],
-  isFilm: boolean
+  isFilm: boolean,
 }
 const ImageSlider: React.FC<listImage> = ({list,isFilm}) => {
   
@@ -180,7 +180,7 @@ const ImageSlider: React.FC<listImage> = ({list,isFilm}) => {
 export interface IAppProps {
   isFilm:boolean,
   list:Tag[],
-  title:string
+  title:string,
 }
 export default function BoxContainer (props: IAppProps) {
     const ListFile = props.list
