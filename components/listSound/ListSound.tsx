@@ -26,6 +26,8 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import getEpisodes from '@/api/getEpisodes';
 import getShowDetails from '@/api/getShowDetails';
+import Head from 'next/head';
+import {useRouter} from "next/router"
 export interface IAppProps {
     playlist:Tag,
     
@@ -275,6 +277,8 @@ export default function ListSound (props: IAppProps) {
     const playlist = props.playlist;
     const fetchData = async ()=>{
         setFilmDetails([])
+        setLoadingSeasons(true)
+        setLoadingEpisodes(true)
         if (playlist.type == 1){
             const response = await getSeasons(playlist.slug)
             if (response.status == 200){
@@ -293,8 +297,17 @@ export default function ListSound (props: IAppProps) {
         
     }
 
+    let router = useRouter();
     
-
+    
+    React.useEffect(()=>{
+        let type:string = "shows";
+        if (props.playlist.type == 2) {
+            type="movies"
+        }
+        if (props.playlist.slug) router.push(`/${type}/${props.playlist.slug}`)
+    },[props.playlist.slug])
+    
     React.useEffect(()=>{
         fetchData()
     },[props.playlist.slug])
@@ -306,8 +319,16 @@ export default function ListSound (props: IAppProps) {
     }
 
   return (<>
-
     <ThemeProvider theme={darkTheme}>
+    <Head>
+        <title> {playlist.name} | Popcorn Sound</title>
+        <meta name="description" content={playlist.name} />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href="/favicon.svg" />
+        <link rel="preconnect" href="https://fonts.googleapis.com"/>
+        <link rel="preconnect" href="https://fonts.gstatic.com"/>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&display=swap" rel="stylesheet"/>
+    </Head>
     <div style={{
         width:"100%",
         color:style.textColor,

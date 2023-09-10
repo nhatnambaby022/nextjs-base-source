@@ -7,9 +7,13 @@ import getListFilm from '@/api/getListFilm';
 import Link from "next/link";
 import getListShows from '@/api/getListShows';
 import MusicNoteIcon from '@mui/icons-material/MusicNote';
+import searchFilm from '@/api/searchFilm';
 export interface IAppProps {
     ListItems: Tag[],
-    type:string
+    type:string,
+    title:string,
+    hiddenPaging?:boolean,
+    keySearch?:string
 }
 
 const Item: React.FC<{tag:Tag}> = ({tag}) =>{
@@ -84,17 +88,24 @@ export default function BoxList (props: IAppProps) {
     };
 
     const fetchData = async ()=>{
-      const response = await callGetListAPI();
-      if (response.status == 200) {
-        setListFilm(response.data)
-        setIsLoading(false)
+      if (props.type=="all" && props.keySearch){
+        const response = await searchFilm(props.keySearch);
+        if (response.status == 200) {
+            setListFilm({data:response.data, last_page:0})
+            setIsLoading(false)
+        }
+      } else {
+        const response = await callGetListAPI();
+        if (response.status == 200) {
+            setListFilm(response.data)
+            setIsLoading(false)
+        }
       }
-      
     }
 
     React.useEffect(()=>{
       fetchData()
-    },[])
+    },[props.keySearch])
 
     if (isLoading) {
       return (
@@ -108,7 +119,7 @@ export default function BoxList (props: IAppProps) {
                 marginTop:"24px",
                 color:style.textColor,
             }}>
-                <span>List {props.type}</span>
+                <span>{props.title} {props.type == "all" ? ` for "${props.keySearch}"` : ""}</span>
                 <div style={{
                     width:"fit-content",
                     maxWidth:"1260px",
@@ -129,10 +140,9 @@ export default function BoxList (props: IAppProps) {
                             )
                         }
                     </div>
-                    <Pagination count={listFilm.last_page} page={page}  color="secondary" style={{color:"white !important"}} onChange={handleChange}/>
+                    {props.hiddenPaging ? <></> : <Pagination count={listFilm.last_page} page={page}  color="secondary" style={{color:"white !important"}} onChange={handleChange}/>}
                 </div>
             </div>
-            
         </ThemeProvider>
     )
 }

@@ -10,6 +10,7 @@ import getListFilm from '@/api/getListFilm'
 import * as React from 'react';
 import getFilmNew from '@/api/getFilmNew'
 import getFilmPopular from '@/api/getFilmPopular'
+import { useRouter } from 'next/router'
 export interface Tag{
   id:string,
   name:string,
@@ -23,21 +24,13 @@ function Container(){
 
   const [isLoading, setIsLoading] = React.useState(true);
   const [listFilm, setListFilm] = React.useState([]);
-  const [listFilmNew, setListFilmNew] = React.useState([]); 
   const [listFilmPopular, setListFilmPopular] = React.useState([]); 
-
+  const [searchKey,setSearchKey] = React.useState<string>("")
+  const router = useRouter();
     const fetchDataFilm = async ()=>{
       const response = await getListFilm();
       if (response.status == 200) {
         setListFilm(response.data.data)
-        setIsLoading(false)
-      }
-      
-    }
-    const fetchDataFilmNew = async ()=>{
-      const response = await getFilmNew();
-      if (response.status == 200) {
-        setListFilmNew(response.data.data)
         setIsLoading(false)
       }
       
@@ -52,8 +45,16 @@ function Container(){
     }
 
     React.useEffect(()=>{
+      const urlParams = new URL(window.location.href)
+      const key = urlParams.searchParams.get("key")
+      if (key) setSearchKey(key)
+      const onChangeParam = () =>{
+        const urlParams = new URL(window.location.href)
+        const key = urlParams.searchParams.get("key")
+        if (key) setSearchKey(key)
+      }
+      router.events.on("routeChangeComplete",onChangeParam)
       fetchDataFilm()
-      fetchDataFilmNew()
       fetchDataFilmPopular()
     },[])
 
@@ -74,16 +75,8 @@ function Container(){
       alignItems:"center",
       justifyItems:"center",
     }}>
-      <div>
-        <img src='/album.png' style={{
-          width:"calc(100vw - 48px)",
-          minWidth:"300px",
-          maxWidth:"1260px"
-        }} />
-      </div>
-      <BoxContainer isFilm={true} title="New movies" list={listFilmNew}/>
-      <BoxList ListItems={listFilm} title="List movies" type="movies"/>
-      <BoxContainer isFilm={true} title="Popular movies" list={listFilmPopular}/>
+      <BoxList ListItems={listFilm} title="Search result" hiddenPaging={true} type="all" keySearch={searchKey}/>
+      <BoxContainer isFilm={true} title="Hot movies" list={listFilmPopular}/>
     </div>
   )
 }
@@ -100,7 +93,7 @@ export default function Home() {
         <link rel="preconnect" href="https://fonts.gstatic.com"/>
         <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&display=swap" rel="stylesheet"/>
       </Head>
-      <LayOutDefault child={<Container />} currentRoute="Home"/>
+      <LayOutDefault child={<Container />} currentRoute="Movies" isSearch={true}/>
     </div>
   )
 }

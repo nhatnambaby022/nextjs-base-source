@@ -97,7 +97,8 @@ const darkTheme = createTheme({
 
 interface myprops {
   child : ReactNode,
-  currentRoute: String
+  currentRoute: String,
+  isSearch?:boolean
 }
 
 
@@ -109,6 +110,8 @@ export default function LayOutDefault(props: myprops) {
   const initFilm:Tag[] = []
   const [Films,setFilms] = React.useState(initFilm)
   const [key,setKey] = React.useState("")
+  const [searchIsChange, setSearchIsChange] = React.useState(false);
+  const [firstValue, setFirstValue] = React.useState("");
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -119,16 +122,38 @@ export default function LayOutDefault(props: myprops) {
 
   const goToFilm = (e:React.SyntheticEvent<Element>,value:string) =>{
     const filmSelect:Tag[] = Films.filter((el:Tag) => el.name == value)
-    router.push(`/sound/${filmSelect[0].slug}`)
+    if(filmSelect.length > 0) {
+      router.push(`/sound/${filmSelect[0].slug}`)
+    } else {
+      router.push(`/search?key=${value}`)
+    }
   }
+  React.useEffect(()=>{
+    const urlParams = new URL(window.location.href)
+    const key = urlParams.searchParams.get("key")
+    
+    if (key) {
+      setFirstValue(key)
+      setKey(key)
+    }
+  },[])
 
   const searchFilmHandle = async (e:React.ChangeEvent<HTMLInputElement>)=>{
-    const key = e.target.value
-    setKey(key)
-    if (!key) return;
-    const response = await searchFilm(key);
-    if (response.status == 200){
-      setFilms(response.data)
+    setSearchIsChange(true)
+    if (props.isSearch){
+      router.push(`/search?key=${e.target.value}`)
+      const urlParams = new URL(window.location.href)
+      const key = urlParams.searchParams.get("key")
+      if (key) setKey(key)
+    } else {
+      setFilms([])
+      const key = e.target.value
+      setKey(key)
+      if (!key) return;
+      const response = await searchFilm(key);
+      if (response.status == 200){
+        setFilms(response.data)
+      }
     }
   }
   return (
@@ -147,10 +172,15 @@ export default function LayOutDefault(props: myprops) {
               width:"50%",
               minWidth:"88px"
             }} className={style.leftContent}>
-              <Link href="/">
-                <IconButton>
-                  <img className={style.iconLogo} style={{height:"24px", margin:"5px 20px 0px 0px"}} src="/logotext.svg"/>
-                </IconButton>
+              <Link href="/"  style={{
+                  display:"flex",
+                  textAlign:"center",
+                  alignContent:"center",
+                  marginRight:"12px",
+                }}>
+                <Button>
+                  <img className={style.iconLogo} style={{height:"24px"}} src="/logotext.svg"/>
+                </Button>
               </Link>
               <IconButton
                 color="inherit"
@@ -163,15 +193,16 @@ export default function LayOutDefault(props: myprops) {
                 <MenuIcon />
               </IconButton>
               <Stack  sx={{ width: "100%", borderRadius:"30px",maxWidth:350 }}>
-                <Autocomplete 
+                <Autocomplete
                   freeSolo
                   id="free-solo-2-demo"
                   disableClearable
+                  value={`${firstValue}`}
                   options={Films.map((option) => option.name)}
-                  
                   onChange={goToFilm}
                   renderInput={(params) => (
                     <TextField
+                      value={key}
                       onChange={searchFilmHandle}
                       {...params}
                       InputProps={{
@@ -245,7 +276,15 @@ export default function LayOutDefault(props: myprops) {
           justifyContent:"space-between",
           margin:"16px 0px 0px 10px"
         }}>
-          <img style={{height:"24px"}} src={open ? "/logotext.svg" : ""}/>
+          <Link href="/"  style={{
+              display:"flex",
+              textAlign:"center",
+              alignContent:"center",
+            }}>
+            <Button>
+            <img style={{height:"24px"}} src={open ? "/logotext.svg" : ""}/>
+            </Button>
+          </Link>
           <IconButton onClick={handleDrawerClose} style={{color:style.textColor}}>
             {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
           </IconButton>
