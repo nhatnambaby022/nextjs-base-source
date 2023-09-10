@@ -157,22 +157,22 @@ export const MediaControlCard:React.FC<MediaControlProp> = ({isPlaying,setPlayin
                 }} className={style.dropdownBtn}>
                     <MoreVertIcon className={style.dropdownBtn}/>
                     <Box sx={{ display: 'flex', alignItems: 'center', minWidth:"250px", backgroundColor:"rgba(66, 66, 66, 1)" }} className={style.dropdownLink}>
-                        <a href={audio?.youtube_link}>
+                        <a href={audio?.youtube_link}  target="_blank">
                             <IconButton>
                                 <img src="/youtube.png" alt="youtube" className={style.icon_link}/>
                             </IconButton>
                         </a>
-                        <a href={audio?.spotify_link}>
+                        <a href={audio?.spotify_link} target="_blank">
                             <IconButton>
                             <img src="/spotify.png" alt="spotify" className={style.icon_link}/>
                             </IconButton>
                         </a>
-                        <a href={audio?.apple_link}>
+                        <a href={audio?.apple_link} target="_blank">
                             <IconButton>
                                 <img src="/itune.png" alt="itune" className={style.icon_link}/>
                             </IconButton>
                         </a>
-                        <a href={audio?.amazon_link}>
+                        <a href={audio?.amazon_link} target="_blank">
                             <IconButton>
                                 <img src="/amazon.png" alt="amazon" className={style.icon_link}/>
                             </IconButton>
@@ -321,8 +321,8 @@ export default function ListSound (props: IAppProps) {
   return (<>
     <ThemeProvider theme={darkTheme}>
     <Head>
-        <title> {playlist.name} | Popcorn Sound</title>
-        <meta name="description" content={playlist.name} />
+        <title> {playlist.name} | Popcorn Sound</title> 
+        <meta name="description" content="Discover the perfect soundtrack for every moment at Popcorn Sound – your ultimate destination for cinematic and immersive audio experiences. Explore a vast collection of handpicked soundtracks that elevate your emotions, whether you're watching a movie, playing a game, or simply enjoying life's moments. From epic orchestral scores to soulful melodies, find the right sound to complement your journey. Dive into the world of soundtracks with Popcorn Sound today." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.svg" />
         <link rel="preconnect" href="https://fonts.googleapis.com"/>

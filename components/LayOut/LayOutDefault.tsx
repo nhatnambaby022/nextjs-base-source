@@ -125,12 +125,12 @@ export default function LayOutDefault(props: myprops) {
     if(filmSelect.length > 0) {
       router.push(`/sound/${filmSelect[0].slug}`)
     } else {
-      router.push(`/search?key=${value}`)
+      router.push(`/search?q=${value}`)
     }
   }
   React.useEffect(()=>{
     const urlParams = new URL(window.location.href)
-    const key = urlParams.searchParams.get("key")
+    const key = urlParams.searchParams.get("q")
     
     if (key) {
       setFirstValue(key)
@@ -141,9 +141,9 @@ export default function LayOutDefault(props: myprops) {
   const searchFilmHandle = async (e:React.ChangeEvent<HTMLInputElement>)=>{
     setSearchIsChange(true)
     if (props.isSearch){
-      router.push(`/search?key=${e.target.value}`)
+      router.push(`/search?q=${e.target.value}`)
       const urlParams = new URL(window.location.href)
-      const key = urlParams.searchParams.get("key")
+      const key = urlParams.searchParams.get("q")
       if (key) setKey(key)
     } else {
       setFilms([])

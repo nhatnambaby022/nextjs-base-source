@@ -46,11 +46,11 @@ function Container(){
 
     React.useEffect(()=>{
       const urlParams = new URL(window.location.href)
-      const key = urlParams.searchParams.get("key")
+      const key = urlParams.searchParams.get("q")
       if (key) setSearchKey(key)
       const onChangeParam = () =>{
         const urlParams = new URL(window.location.href)
-        const key = urlParams.searchParams.get("key")
+        const key = urlParams.searchParams.get("q")
         if (key) setSearchKey(key)
       }
       router.events.on("routeChangeComplete",onChangeParam)
