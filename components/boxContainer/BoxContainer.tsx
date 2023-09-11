@@ -191,7 +191,9 @@ export default function BoxContainer (props: IAppProps) {
         color:style.textColor,
         maxWidth:"1260px"
     }}>
+        <hr style={{marginBottom: "20px", borderColor : "#525252"}}/>
         <span>{props.title}</span>
+        <hr style={{margin: "20px 0",  borderColor : "#525252"}}/>
         <ImageSlider  list={ListFile} isFilm={props.isFilm}/>
     </div>
   );
