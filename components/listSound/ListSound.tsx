@@ -130,22 +130,22 @@ export const MediaControlCard:React.FC<MediaControlProp> = ({isPlaying,setPlayin
             </Box>
           
             <Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1, minWidth:"280px" }} className={style.boxsIcon}>
-                <a href={audio?.youtube_link}>
+                <a href={audio?.youtube_link} target="_blank">
                     <IconButton>
                         <img src="/youtube.png" alt="youtube" className={style.icon_link}/>
                     </IconButton>
                 </a>
-                <a href={audio?.spotify_link}>
+                <a href={audio?.spotify_link} target="_blank">
                     <IconButton>
                     <img src="/spotify.png" alt="spotify" className={style.icon_link}/>
                     </IconButton>
                 </a>
-                <a href={audio?.apple_link}>
+                <a href={audio?.apple_link} target="_blank">
                     <IconButton>
                         <img src="/itune.png" alt="itune" className={style.icon_link}/>
                     </IconButton>
                 </a>
-                <a href={audio?.amazon_link}>
+                <a href={audio?.amazon_link} target="_blank">
                     <IconButton>
                         <img src="/amazon.png" alt="amazon" className={style.icon_link}/>
                     </IconButton>
@@ -325,6 +325,17 @@ export default function ListSound (props: IAppProps) {
         <meta name="description" content="Discover the perfect soundtrack for every moment at Popcorn Sound – your ultimate destination for cinematic and immersive audio experiences. Explore a vast collection of handpicked soundtracks that elevate your emotions, whether you're watching a movie, playing a game, or simply enjoying life's moments. From epic orchestral scores to soulful melodies, find the right sound to complement your journey. Dive into the world of soundtracks with Popcorn Sound today." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.svg" />
+
+        <meta property="og:description" content="Discover the perfect soundtrack for every moment at Popcorn Sound – your ultimate destination for cinematic and immersive audio experiences. Explore a vast collection of handpicked soundtracks that elevate your emotions, whether you're watching a movie, playing a game, or simply enjoying life's moments. From epic orchestral scores to soulful melodies, find the right sound to complement your journey. Dive into the world of soundtracks with Popcorn Sound today." />
+        <meta property="og:image" content={playlist.thumbnail} />
+        <meta name="twitter:card" content="summary_large_image"/>
+        <meta name="twitter:creator" content="@PopcornSound" />
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://popcornsound.com" />
+        <meta name="msapplication-TileColor" content="#da532c" />
+        <meta name="theme-color" content="#ffffff" />
+
         <link rel="preconnect" href="https://fonts.googleapis.com"/>
         <link rel="preconnect" href="https://fonts.gstatic.com"/>
         <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&display=swap" rel="stylesheet"/>
