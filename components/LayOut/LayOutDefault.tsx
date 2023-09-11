@@ -169,6 +169,7 @@ export default function LayOutDefault(props: myprops) {
           }}>
             <div style={{
               display:"flex",
+              alignItems:"center",
               width:"50%",
               minWidth:"88px"
             }} className={style.leftContent}>
@@ -177,10 +178,9 @@ export default function LayOutDefault(props: myprops) {
                   textAlign:"center",
                   alignContent:"center",
                   marginRight:"12px",
+                  height:"100%"
                 }}>
-                <Button>
                   <img className={style.iconLogo} style={{height:"24px"}} src="/logotext.svg"/>
-                </Button>
               </Link>
               <IconButton
                 color="inherit"
@@ -192,7 +192,7 @@ export default function LayOutDefault(props: myprops) {
               >
                 <MenuIcon />
               </IconButton>
-              <Stack  sx={{ width: "100%", borderRadius:"30px",maxWidth:350 }}>
+              <Stack  sx={{ width: "100%", borderRadius:"30px",maxWidth:350}}>
                 <Autocomplete
                   freeSolo
                   id="free-solo-2-demo"
@@ -214,7 +214,8 @@ export default function LayOutDefault(props: myprops) {
                           height:"50px",
                           display:"flex",
                           alignContent:"center",
-                          marginLeft:"px"
+                          minWidth:"80px !important",
+                          flexWrap:"nowrap"
                         },
                         startAdornment: <img src='/find.svg' style={{marginLeft:"6px"}}/>
                       }}
@@ -281,9 +282,7 @@ export default function LayOutDefault(props: myprops) {
               textAlign:"center",
               alignContent:"center",
             }}>
-            <Button>
-            <img style={{height:"24px"}} src={open ? "/logotext.svg" : ""}/>
-            </Button>
+              <img style={{height:"24px"}} src={open ? "/logotext.svg" : ""}/>
           </Link>
           <IconButton onClick={handleDrawerClose} style={{color:style.textColor}}>
             {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
