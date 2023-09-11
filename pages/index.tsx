@@ -76,14 +76,15 @@ function Container(){
     }}>
       <div>
         <img src='/album.png' style={{
+          marginTop: "20px",
           width:"calc(100vw - 48px)",
           minWidth:"300px",
           maxWidth:"1260px"
         }} />
       </div>
-      <BoxContainer isFilm={true} title="New movies" list={listFilmNew}/>
-      <BoxList ListItems={listFilm} title="List movies" type="movies"/>
-      <BoxContainer isFilm={false} title="Popular movies" list={listFilmPopular}/>
+      <BoxContainer isFilm={true} title="New films" list={listFilmNew}/>
+      <BoxList ListItems={listFilm} title="List films" type="movies"/>
+      <BoxContainer isFilm={false} title="Popular films" list={listFilmPopular}/>
     </div>
   )
 }

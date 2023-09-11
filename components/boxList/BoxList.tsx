@@ -7,6 +7,7 @@ import getListFilm from '@/api/getListFilm';
 import Link from "next/link";
 import getListShows from '@/api/getListShows';
 import MusicNoteIcon from '@mui/icons-material/MusicNote';
+import Grid from '@mui/material/Grid';
 import searchFilm from '@/api/searchFilm';
 export interface IAppProps {
     ListItems: Tag[],
@@ -23,16 +24,17 @@ const Item: React.FC<{tag:Tag}> = ({tag}) =>{
             margin:"0px 20px 20px 0px",
             display:"flex",
             flexDirection:"column",
+            width: "30%"
         }}>
             <img src={tag.thumbnail} alt="" className={style.tagMobile} style={{
-                height:200,
+                height: 200,
                 objectFit:"cover",
             }}/>
             <div className={style.tagMobile} style={{
                 background:"rgba(33, 33, 33, 1)",
                 display:"flex",
                 justifyContent:"center",
-                height:60
+                height:80
             }}>
                 <span className={style.tagMobile} style={{
                     fontSize:"16px",
@@ -43,7 +45,7 @@ const Item: React.FC<{tag:Tag}> = ({tag}) =>{
                     whiteSpace:"nowrap"
                 }}>
                     {tag.name}
-                    <br/> 
+                    <div style={{height: 10}}></div>
                     <div style={{
                         display:"flex",
                         alignItems:"center",
@@ -119,7 +121,9 @@ export default function BoxList (props: IAppProps) {
                 marginTop:"24px",
                 color:style.textColor,
             }}>
+                <hr style={{marginBottom: "20px", borderColor : "#525252"}}/>
                 <span>{props.title} {props.type == "all" ? ` for "${props.keySearch}"` : ""}</span>
+                <hr style={{margin: "20px 0px", borderColor : "#525252"}}/>
                 <div style={{
                     width:"fit-content",
                     maxWidth:"1260px",
@@ -130,6 +134,7 @@ export default function BoxList (props: IAppProps) {
                     marginTop:"24px",
                 }}>
                     <div style={{
+                        width: "100%",
                         display:"flex",
                         flexWrap:"wrap",
                         justifyContent:"center"
@@ -140,7 +145,7 @@ export default function BoxList (props: IAppProps) {
                             )
                         }
                     </div>
-                    {props.hiddenPaging ? <></> : <Pagination count={listFilm.last_page} page={page}  color="secondary" style={{color:"white !important"}} onChange={handleChange}/>}
+                    {props.hiddenPaging ? <></> : <Pagination count={listFilm.last_page} page={page}  color="secondary" style={{color:"white !important", marginTop: "10px"}} onChange={handleChange}/>}
                 </div>
             </div>
         </ThemeProvider>
