@@ -89,7 +89,7 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
 
         <meta property="og:description" content="Discover the perfect soundtrack for every moment at Popcorn Sound – your ultimate destination for cinematic and immersive audio experiences. Explore a vast collection of handpicked soundtracks that elevate your emotions, whether you're watching a movie, playing a game, or simply enjoying life's moments. From epic orchestral scores to soulful melodies, find the right sound to complement your journey. Dive into the world of soundtracks with Popcorn Sound today." />
-        <meta property="og:image" content="/cover_popcorn_sound.png" />
+        <meta property="og:image" content="https://popcornsound.com/cover_popcorn_sound.png" />
         <meta name="twitter:card" content="summary_large_image"/>
         <meta name="twitter:creator" content="@PopcornSound" />
         <meta property="og:locale" content="en_US" />
