@@ -8,6 +8,7 @@ import getFilmById from '@/api/getFilmById';
 import {Helmet} from "react-helmet";
 import BoxContainer from '@/components/boxContainer/BoxContainer';
 import getFilmPopular from '@/api/getFilmPopular';
+import type { Metadata, ResolvingMetadata } from 'next'
 export interface Tag{
   id:string,
   name:string,
@@ -16,6 +17,33 @@ export interface Tag{
   soundtrack_count: number,
   author?:string
 }
+
+
+
+
+// export async function generateMetadata(
+//   { params}: {
+//     params:{
+//       slug:string
+//     }
+//   }
+// ):Promise<Metadata> {
+//   // read route params
+//   const id = params.slug
+ 
+//   // fetch data
+//   const filmRes = await getFilmById(id)
+//   const film = filmRes.data
+ 
+//   return {
+//     title: film.title,
+//     openGraph: {
+//       images: [`${film.thumbnail}`],
+//     },
+    
+//   }
+// }
+
 function Container(){
     const router = useRouter()
 
@@ -28,7 +56,26 @@ function Container(){
     const [isLoading, setIsLoading] = React.useState(true);
     const [filmDetails, setFilmDetails] = React.useState(initTag);
     const [listFilmPopular, setListFilmPopular] = React.useState([]); 
-    const [head,setHead] = React.useState(<></>)
+    const [head,setHead] = React.useState(<><Head>
+      <title>Soundtrack form Movies & TVShows | Popcornsound</title>
+      <meta name="description" content="Discover the perfect soundtrack for every moment at Popcorn Sound – your ultimate destination for cinematic and immersive audio experiences. Explore a vast collection of handpicked soundtracks that elevate your emotions, whether you're watching a movie, playing a game, or simply enjoying life's moments. From epic orchestral scores to soulful melodies, find the right sound to complement your journey. Dive into the world of soundtracks with Popcorn Sound today." />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+      <meta property="og:description" content="Discover the perfect soundtrack for every moment at Popcorn Sound – your ultimate destination for cinematic and immersive audio experiences. Explore a vast collection of handpicked soundtracks that elevate your emotions, whether you're watching a movie, playing a game, or simply enjoying life's moments. From epic orchestral scores to soulful melodies, find the right sound to complement your journey. Dive into the world of soundtracks with Popcorn Sound today." />
+      <meta property="og:image" content="https://popcornsound.com/cover_popcorn_sound.png" />
+      <meta name="twitter:card" content="summary_large_image"/>
+      <meta name="twitter:creator" content="@PopcornSound" />
+      <meta property="og:locale" content="en_US" />
+      <meta property="og:type" content="website" />
+      <meta property="og:url" content="https://popcornsound.com" />
+      <meta name="msapplication-TileColor" content="#da532c" />
+      <meta name="theme-color" content="#ffffff" />
+
+      <link rel="icon" href="/favicon.svg" />
+      <link rel="preconnect" href="https://fonts.googleapis.com"/>
+      <link rel="preconnect" href="https://fonts.gstatic.com"/>
+      <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&display=swap" rel="stylesheet"/>
+    </Head></>)
 
     const fetchData = async ()=>{
         const {slug} = router.query
@@ -106,8 +153,11 @@ function Container(){
     )
   }
 }
-
+export const metadata: Metadata = {
+  title: 'ak',
+}
 export default function Sound() {
+  
   return (
     <div>
       

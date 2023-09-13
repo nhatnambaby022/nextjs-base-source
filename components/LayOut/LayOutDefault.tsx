@@ -34,6 +34,7 @@ import { Tag } from '@/pages/index';
 import { useRouter } from 'next/router';
 import LiveTvIcon from '@mui/icons-material/LiveTv';
 import SettingsIcon from '@mui/icons-material/Settings';
+import Footer from '../footer/footer';
 
 
 const drawerWidth = 240;
@@ -156,7 +157,7 @@ export default function LayOutDefault(props: myprops) {
       }
     }
   }
-  return (
+  return (<>
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
       <ThemeProvider theme={darkTheme}>
@@ -347,10 +348,14 @@ export default function LayOutDefault(props: myprops) {
       </Drawer>
       <Main open={open} style={{
         backgroundColor: style.BGColorBody,
+        position:"relative"
       }}>
         <DrawerHeader style={{height:"80px"}}/>
         {props.child}
+        <Footer />
       </Main>
     </Box>
+    
+    </>
   );
 }
