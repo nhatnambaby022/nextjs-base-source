@@ -52,7 +52,7 @@
 
 .dots{
     position: absolute;
-    bottom: 10px;
+    bottom: 5px;
     color: #fff;
     left: 0;
     width: 100%;
@@ -91,12 +91,17 @@
 }
 
 .bannerItem .content p {
+    font-size: 0.9rem;
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;
     overflow: hidden;
     word-wrap: break-word;
     text-overflow: ellipsis;
+}
+
+.bannerItem .content span {
+    font-size: 1rem;
 }
 
 .bannerItem .column {
