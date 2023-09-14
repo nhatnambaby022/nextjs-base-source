@@ -28,6 +28,15 @@ async function generateSiteMap():Promise<string> {
      <url>
        <loc>https://popcornsound.com/movies</loc>
      </url>
+     <url>
+       <loc>https://popcornsound.com/terms</loc>
+     </url>
+     <url>
+       <loc>https://popcornsound.com/privacy</loc>
+     </url>
+     <url>
+       <loc>https://popcornsound.com/search?q=</loc>
+     </url>
      ${films.map((film:Tag) => {
          return `
        <url>
