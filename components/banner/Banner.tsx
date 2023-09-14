@@ -24,9 +24,8 @@ interface BannerProps {
 
 const Banner: React.FC<BannerProps> = ({ listData }) => {
   const [active, setActive] = useState(0);
-  const listDivRef = useRef(null);
-
   const banImgs = [listData[0], listData[1], listData[2]];
+  const listDivRef = useRef(null);
 
   const changeNext = () => {
     setActive((prevActive) => (prevActive + 1) % banImgs.length);
@@ -48,16 +47,16 @@ const Banner: React.FC<BannerProps> = ({ listData }) => {
     };
   }, [active]);
 
-  return (
+  return <>{banImgs ?
     <div className={style.slider} id="slider">
       <div className={style.list} ref={listDivRef}>
         <div className={style.bannerItem}>
           <div className={style.content}>
-            <p>{banImgs[active].description ?? ""}</p>
+            <p>{banImgs[active]?.description ?? ""}</p>
             <div className={style.row}>
               <div className={style.column}>
                 <HeadphonesIcon className={style.banIcon} />
-                <span>{banImgs[active].soundtrack_count} songs</span>
+                <span>{banImgs[active]?.soundtrack_count} songs</span>
               </div>
               <div>
                 <Button
@@ -92,7 +91,7 @@ const Banner: React.FC<BannerProps> = ({ listData }) => {
         })}
       </ul>
     </div>
-  );
+   : <div />}</>
 };
 
 export default Banner;
