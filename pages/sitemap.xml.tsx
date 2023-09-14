@@ -1,19 +1,19 @@
 
 import { GetServerSideProps } from "next";
-import getListFilm from '@/api/getListFilm'
-import getListShows from '@/api/getListShows'
 import { Tag } from "./index";
+import getAllFilms from "@/api/getAllFilms";
+import getAllShows from "@/api/getAllShows";
 async function generateSiteMap():Promise<string> {
-  const filmRes = await getListFilm();
+  const filmRes = await getAllFilms();
   let films = [];
   if (filmRes.data){
-    films = filmRes.data.data
+    films = filmRes.data
   }
 
   let shows = [];
-  const showRes = await getListShows();
+  const showRes = await getAllShows();
   if (showRes.data){
-    shows = showRes.data.data
+    shows = showRes.data
   }
 
   return `<?xml version="1.0" encoding="UTF-8"?>
@@ -39,7 +39,7 @@ async function generateSiteMap():Promise<string> {
     ${shows.map((show:Tag) => {
         return `
       <url>
-          <loc>https://popcornsound.com/movies/${show.slug}</loc>
+          <loc>https://popcornsound.com/shows/${show.slug}</loc>
       </url>
     `;
       })

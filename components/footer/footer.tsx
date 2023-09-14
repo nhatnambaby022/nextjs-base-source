@@ -1,5 +1,6 @@
 import { Button } from '@mui/base';
 import { height, minHeight } from '@mui/system';
+import Link from 'next/link';
 import * as React from 'react';
 import style from './footer.module.scss';
 
@@ -41,7 +42,13 @@ export default function Footer (props: IAppProps) {
                         fontSize:"16px",
                         fontStyle:"italic",
                         color:"rgba(177, 177, 177, 1)"
-                    }} >2023 copyright by Popcorn Sound</span> 
+                    }} >2023 copyright by Popcorn Sound</span><br/>
+                    <span style={{
+                        fontSize:"16px",
+                        fontStyle:"italic",
+                        color:"rgba(177, 177, 177, 1)"
+                    }}><Link style={{textDecoration:"underline 2px"}} href="/privacy">Privacy</Link> or <Link style={{textDecoration:"underline 2px"}} href="/terms">Terms</Link></span>
+                     
                 </div>
             </div>
             <div className={style.boxItem} style={{

@@ -70,7 +70,7 @@ function Container(){
   )
 }
 
-export default function Home() {
+export default function Movies() {
   return (
     <div>
       <Head>

@@ -30,7 +30,6 @@ import Head from 'next/head';
 import {useRouter} from "next/router"
 export interface IAppProps {
     playlist:Tag,
-    
 }
 
 export interface audioDetails {
@@ -369,7 +368,7 @@ export default function ListSound (props: IAppProps) {
                             <h1>{props.playlist.name}</h1>
                             <div style={{fontSize:"20px", fontStyle:"italic",fontWeight:"900"}}> <span className={style.listDetails}>Movie genre:</span>{playlist.type == 1 ? " Shows" : " Movies"} </div>
                             <div style={{fontSize:"20px", fontStyle:"italic",fontWeight:"900"}}> <span className={style.listDetails}>Number of songs:</span> {`${props.playlist.soundtrack_count} songs`}</div>
-                            <div style={{fontSize:"20px",fontWeight:"900"}}> Description</div>
+                            <div style={{fontSize:"20px",fontWeight:"900"}} className={style.textDes}>{playlist.description}</div>
                             <div style={{display:"flex", flexWrap:"wrap"}}>
                             {
                                 !playlist 

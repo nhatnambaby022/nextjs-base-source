@@ -17,7 +17,8 @@ export interface Tag{
   slug?:string,
   soundtrack_count: number,
   author?:string,
-  type?:number
+  type?:number,
+  description?:string
 }
 function Container(){
 

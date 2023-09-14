@@ -9,14 +9,8 @@ import {Helmet} from "react-helmet";
 import BoxContainer from '@/components/boxContainer/BoxContainer';
 import getFilmPopular from '@/api/getFilmPopular';
 import type { Metadata, ResolvingMetadata } from 'next'
-export interface Tag{
-  id:string,
-  name:string,
-  thumbnail:string,
-  slug?:string,
-  soundtrack_count: number,
-  author?:string
-}
+import { Tag } from '../index';
+
 
 
 

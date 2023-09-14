@@ -157,8 +157,12 @@ export default function LayOutDefault(props: myprops) {
       }
     }
   }
-  return (<>
-    <Box sx={{ display: 'flex' }}>
+  return (<div> 
+    <Box sx={{ 
+      display: 'flex',
+      height:"fit-content",
+      overflowY:"-moz-initial"
+    }}>
       <CssBaseline />
       <ThemeProvider theme={darkTheme}>
         <AppBar position="fixed" open={open}>
@@ -348,14 +352,14 @@ export default function LayOutDefault(props: myprops) {
       </Drawer>
       <Main open={open} style={{
         backgroundColor: style.BGColorBody,
-        position:"relative"
+        position:"relative",
+        overflow:"revert",
       }}>
         <DrawerHeader style={{height:"80px"}}/>
         {props.child}
-        <Footer />
       </Main>
     </Box>
-    
-    </>
+    <Footer />
+    </div>
   );
 }

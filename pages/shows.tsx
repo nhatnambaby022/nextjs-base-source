@@ -1,14 +1,10 @@
 import Head from 'next/head'
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
-import styles from '@/styles/Home.module.css'
 import LayOutDefault from '@/components/LayOut/LayOutDefault'
 import BoxContainer from '@/components/boxContainer/BoxContainer'
 import BoxList from '@/components/boxList/BoxList'
 import { CircularProgress } from '@mui/material'
 import getListFilm from '@/api/getListFilm'
 import * as React from 'react';
-import getFilmNew from '@/api/getFilmNew'
 import getFilmPopular from '@/api/getFilmPopular'
 export interface Tag{
   id:string,
@@ -70,7 +66,7 @@ function Container(){
   )
 }
 
-export default function Home() {
+export default function Shows() {
   return (
     <div>
       <Head>
