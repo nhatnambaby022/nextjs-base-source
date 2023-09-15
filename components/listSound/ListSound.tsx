@@ -328,7 +328,7 @@ export default function ListSound (props: IAppProps) {
         <div style={{
             position: "relative"
         }}>
-            <img src={props.playlist.thumbnail} style={{
+            <img src={props.playlist.backdrop} style={{
                 width:"100%",
                 height:"400px",
                 objectFit:"cover",
@@ -366,8 +366,8 @@ export default function ListSound (props: IAppProps) {
 
                         <div style={{marginLeft:"12px"}}>
                             <h1>{props.playlist.name}</h1>
-                            <div style={{fontSize:"20px", fontStyle:"italic",fontWeight:"900"}}> <span className={style.listDetails}>Movie genre:</span>{playlist.type == 1 ? " Shows" : " Movies"} </div>
-                            <div style={{fontSize:"20px", fontStyle:"italic",fontWeight:"900"}}> <span className={style.listDetails}>Number of songs:</span> {`${props.playlist.soundtrack_count} songs`}</div>
+                            <div style={{fontSize:"20px", fontStyle:"italic",fontWeight:"900"}}> <span className={style.listDetails}>Genre:</span>{playlist.type == 1 ? " Show" : " Movie"} </div>
+                            <div style={{fontSize:"20px", fontStyle:"italic",fontWeight:"900"}}> <span className={style.listDetails}>Soundtrack:</span> {`${props.playlist.soundtrack_count} songs`}</div>
                             <div style={{fontSize:"20px",fontWeight:"900"}} className={style.textDes}>{playlist.description}</div>
                             <div style={{display:"flex", flexWrap:"wrap"}}>
                             {

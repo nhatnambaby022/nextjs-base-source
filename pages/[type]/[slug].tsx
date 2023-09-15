@@ -152,15 +152,32 @@ const  Container:React.FC<MyComponentProps> = ({tag})=>{
     )
   }
 }
-export const metadata: Metadata = {
-  title: 'ak',
-}
 
 export default function Sound({data}:MyPageProps) {
   
   return (
     <div>
-      
+      <Head>
+          <title>{`${data.name} | Popcorn Sound`}</title> 
+          <meta name="description" content={data.description}/>
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
+          <link rel="icon" href="/favicon.svg" />
+  
+          <meta property="og:description" content={data.description}/>
+          <meta property="og:image" content={data.thumbnail} />
+          <meta name="twitter:card" content="summary_large_image"/>
+          <meta name="twitter:title" content={`${data.name} | Popcorn Sound`} />
+          <meta name="twitter:site" content="@popcorn_so24313" />
+          <meta name="twitter:creator" content="@popcorn_so24313" />
+          <meta property="og:locale" content="en_US" />
+          <meta property="og:type" content="website" />
+          <meta name="msapplication-TileColor" content="#da532c" />
+          <meta name="theme-color" content="#ffffff" />
+  
+          <link rel="preconnect" href="https://fonts.googleapis.com"/>
+          <link rel="preconnect" href="https://fonts.gstatic.com"/>
+          <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&display=swap" rel="stylesheet"/>
+      </Head>
       <LayOutDefault child={<Container tag={data}/>} currentRoute="Home"/>
       
     </div>

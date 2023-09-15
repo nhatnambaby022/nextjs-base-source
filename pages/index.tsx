@@ -18,7 +18,8 @@ export interface Tag{
   soundtrack_count: number,
   author?:string,
   type?:number,
-  description?:string
+  description?:string,
+  backdrop?:string
 }
 function Container(){
 
@@ -33,7 +34,6 @@ function Container(){
         setListFilm(response.data.data)
         setIsLoading(false)
       }
-      
     }
     const fetchDataFilmNew = async ()=>{
       const response = await getFilmNew();
