@@ -3,6 +3,7 @@ import Image from 'next/image'
 import { Inter } from 'next/font/google'
 import styles from '@/styles/Home.module.css'
 import LayOutDefault from '@/components/LayOut/LayOutDefault'
+import Banner from '@/components/banner/Banner'
 import BoxContainer from '@/components/boxContainer/BoxContainer'
 import BoxList from '@/components/boxList/BoxList'
 import { CircularProgress } from '@mui/material'
@@ -75,14 +76,7 @@ function Container(){
       alignItems:"center",
       justifyItems:"center",
     }}>
-      <div>
-        <img src='/album.png' style={{
-          marginTop: "20px",
-          width:"calc(100vw - 48px)",
-          minWidth:"300px",
-          maxWidth:"1260px"
-        }} />
-      </div>
+      <Banner listData={listFilmPopular}/>
       <BoxContainer isFilm={true} title="New films" list={listFilmNew}/>
       <BoxList ListItems={listFilm} title="List films" type="movies"/>
       <BoxContainer isFilm={false} title="Popular films" list={listFilmPopular}/>

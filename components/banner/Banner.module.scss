@@ -1,0 +1,129 @@
+@import '../../styles/variables';
+
+.slider{
+    width: calc(100vw - 48px);
+    max-width: 1260px;
+    height: 50vh;
+    max-height: 300px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 16px;
+    margin-top: 20px;
+}
+
+.list{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    display: flex;
+    width: max-content;
+}
+
+.list .imgBefore {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom right, rgba(0,0,0,0), rgb(0, 0, 0, 2));
+  }
+
+.list .img{
+    width: calc(100vw - 48px);
+    max-width: 1260px;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease-in-out;
+}
+
+.buttons{
+    position: absolute;
+    top: 45%;
+    left: 2%;
+    width: 97%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.iconBtn{
+    color: #fff;
+}
+
+.dots{
+    position: absolute;
+    bottom: 5px;
+    color: #fff;
+    left: 0;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.dots li{
+    list-style: none;
+    width: 10px;
+    height: 10px;
+    background-color: #fff;
+    margin: 10px;
+    border-radius: 20px;
+}
+
+.dots li.active {
+    width: 20px;
+}
+
+.bannerItem {
+    position: relative;
+}
+
+.bannerItem .content {
+    color: #fff;
+    position: absolute;
+    width: 30%;
+    min-width: 200px;
+    right: 0;
+    bottom: 0;
+    margin: 30px;
+    z-index: 10;
+}
+
+.bannerItem .content p {
+    font-size: 0.9rem;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+    word-wrap: break-word;
+    text-overflow: ellipsis;
+}
+
+.bannerItem .content span {
+    font-size: 1rem;
+}
+
+.bannerItem .column {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 20px;
+}
+
+.bannerItem .row {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.bannerItem .banIcon {
+    margin-right: 6px;
+    font-size: 2.8rem;
+}
+
+.bannerItem .banButton {
+    border-radius: 100px;
+    backdrop-filter: blur(10px);
+    background-color:rgba(255,255,255,0.1);
+}
