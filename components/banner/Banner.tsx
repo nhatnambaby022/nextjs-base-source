@@ -5,6 +5,7 @@ import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import HeadphonesIcon from "@mui/icons-material/Headphones";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import style from "./Banner.module.scss";
+import Link from "next/link";
 
 export interface Film {
   id: string;
@@ -59,13 +60,15 @@ const Banner: React.FC<BannerProps> = ({ listData }) => {
                 <span>{banImgs[active]?.soundtrack_count} songs</span>
               </div>
               <div>
-                <Button
-                  startIcon={<PlayArrowIcon />}
-                  className={style.banButton}
-                  variant="contained"
-                >
-                  Play
-                </Button>
+                <Link href={`/movies/${banImgs[active]?.slug}`}>
+                  <Button
+                    startIcon={<PlayArrowIcon />}
+                    className={style.banButton}
+                    variant="contained"
+                  >
+                    Play
+                  </Button>
+                </Link>
               </div>
             </div>
           </div>
