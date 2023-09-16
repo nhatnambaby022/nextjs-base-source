@@ -53,6 +53,7 @@ const Banner: React.FC<BannerProps> = ({ listData }) => {
       <div className={style.list} ref={listDivRef}>
         <div className={style.bannerItem}>
           <div className={style.content}>
+            <h3>{banImgs[active]?.name ?? ""}</h3>
             <p>{banImgs[active]?.description ?? ""}</p>
             <div className={style.row}>
               <div className={style.column}>

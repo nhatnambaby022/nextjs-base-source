@@ -77,6 +77,10 @@
 
 .bannerItem {
     position: relative;
+    animation-duration: 1s; 
+    animation-name: change-ani;
+    animation-timing-function: ease;
+     animation-fill-mode: both;
 }
 
 .bannerItem .content {
@@ -86,7 +90,7 @@
     min-width: 200px;
     right: 0;
     bottom: 0;
-    margin: 30px;
+    margin: 34px;
     z-index: 10;
 }
 
@@ -94,7 +98,7 @@
     font-size: 0.9rem;
     display: -webkit-box;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 3;
+    -webkit-line-clamp: 2;
     overflow: hidden;
     word-wrap: break-word;
     text-overflow: ellipsis;
@@ -119,11 +123,33 @@
 
 .bannerItem .banIcon {
     margin-right: 6px;
-    font-size: 2.8rem;
+    font-size: 2.2rem;
 }
 
 .bannerItem .banButton {
     border-radius: 100px;
     backdrop-filter: blur(10px);
     background-color:rgba(255,255,255,0.1);
+}
+
+@keyframes change-ani {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+@media only screen and (max-width: 768px) {
+
+    .slider{
+        height: 34vh;
+    }
+
+    .bannerItem .content {
+        width: 80%;
+        padding-bottom: 10px;
+        min-width: 200px;
+    }
 }
