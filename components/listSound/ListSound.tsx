@@ -62,10 +62,11 @@ interface MediaControlProp {
     audio?:audioDetails,
     setCurrentTime:(time:number | number[])=> void,
     durationTime:number,
-    i:number
+    i:number,
+    disabled:boolean
 }
 
-export const MediaControlCard:React.FC<MediaControlProp> = ({isPlaying,setPlaying,time,audio,setCurrentTime,durationTime,i}) => {
+export const MediaControlCard:React.FC<MediaControlProp> = ({isPlaying,setPlaying,time,audio,setCurrentTime,durationTime,i,disabled}) => {
     const theme = useTheme();
     const currentTime = time*durationTime
     const mi = Math.floor(currentTime/60)
@@ -88,12 +89,13 @@ export const MediaControlCard:React.FC<MediaControlProp> = ({isPlaying,setPlayin
                     </Typography>
                 </CardContent>
                 <Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1, width:"60%",minWidth: '150px', marginRight:"10px" }} className={style.slider}>
-                    <IconButton aria-label="play/pause" onClick={setPlaying} sx={{ height: 38, width: 38, marginRight:"12px" }}>
+                    <IconButton aria-label="play/pause" onClick={setPlaying} sx={{ height: 38, width: 38, marginRight:"12px" }} disabled={disabled}>
                         {isPlaying ? <PauseIcon sx={{ height: 38, width: 38 }}/> : <PlayArrowIcon sx={{ height: 38, width: 38 }} />}
                     </IconButton>
                     <Box sx={{  width: "60%",minWidth: '150px',margin:"8px 8px 0px 10px" }}>
                         {/* <Slider value={time*100} aria-label="Temperature" color="primary" onChange={(e:Event, newvalue:number | number[])=>{setCurrentTime(newvalue); setPlaying}}/> */}
                         <Slider
+                                disabled={disabled}
                                 value={time*100}
                                 onChange={(e:Event, newvalue:number | number[])=>{setCurrentTime(newvalue); setPlaying}}
                                 aria-label="time-indicator"
@@ -239,7 +241,7 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({ src, onPlay,audio,i }) => {
         <ThemeProvider theme={darkTheme}>
             <div style={{ width:"100%",display:"flex", justifyContent:"center",}}>
                 <audio ref={audioRef} src={src} onPause={()=>{setIsPlaying(false)}} onLoadStart={()=>{setIsPlaying(false); setTime(0); }} onTimeUpdate={()=>setTimeInterval()}/>
-                <MediaControlCard isPlaying={isPlaying} i={i} setPlaying={togglePlay} time={time} audio={audio} setCurrentTime={setCurrentTime} durationTime={duration}/>
+                <MediaControlCard isPlaying={isPlaying} i={i} setPlaying={togglePlay} time={time} audio={audio} setCurrentTime={setCurrentTime} durationTime={duration} disabled={src ? false : true}/>
             </div>
         </ThemeProvider>
         
@@ -260,7 +262,7 @@ export default function ListSound (props: IAppProps) {
     const [filmDetails, setFilmDetails] = React.useState(initState)
     const [activePlayer, setActivePlayer] = React.useState<HTMLAudioElement | null>(null)
     const [listAudioElm, setListAudioElm] = React.useState<HTMLAudioElement | null[]>([])
-    const [season,setSeason] = React.useState<string>("defaultValue")
+    const [season,setSeason] = React.useState<string>()
 
     const [seasons,setSeasons] = React.useState<season[]>([])
     const [isLoadingSeasons,setLoadingSeasons] = React.useState(true);
@@ -283,7 +285,28 @@ export default function ListSound (props: IAppProps) {
             if (response.status == 200){
                 setLoadingSeasons(false)
                 setSeasons(response.data)
-                setIsLoading(false)
+                const season = response.data[0].slug
+                setSeason(response.data[0].slug)
+                if (season){
+                    const episodeRes = await getEpisodes(playlist.slug,season)
+                    if (episodeRes.status == 200){
+                        setEpisodes(episodeRes.data)
+                        setLoadingEpisodes(false)
+                        const episode = episodeRes.data[0].slug
+                        if (episode) {
+                            const showDetailsRes = await getShowDetails(playlist.slug,episode)
+                            if (showDetailsRes.status == 200){
+                                setFilmDetails(showDetailsRes.data)
+                                setIsLoading(false)
+                            } else {
+                                setFilmDetails([])
+                                setIsLoading(false)
+                                
+                            }
+                        }
+                    }
+                    
+                }
             }
         }
         else {
@@ -321,7 +344,7 @@ export default function ListSound (props: IAppProps) {
     <ThemeProvider theme={darkTheme}>
     
     <div style={{
-        width:"100%",
+        width:"100%", 
         color:style.textColor,
         maxWidth:"1200px"
     }}>
@@ -364,7 +387,7 @@ export default function ListSound (props: IAppProps) {
                             borderRadius:"12px"
                         }} className={style.leftPoster}/>
 
-                        <div style={{marginLeft:"12px"}}>
+                        <div style={{margin:"0px 20px 0px 20px"}}>
                             <h1>{props.playlist.name}</h1>
                             <div style={{fontSize:"20px", fontStyle:"italic",fontWeight:"900"}}> <span className={style.listDetails}>Genre:</span>{playlist.type == 1 ? " Show" : " Movie"} </div>
                             <div style={{fontSize:"20px", fontStyle:"italic",fontWeight:"900"}}> <span className={style.listDetails}>Soundtrack:</span> {`${props.playlist.soundtrack_count} songs`}</div>
@@ -401,7 +424,8 @@ export default function ListSound (props: IAppProps) {
                                                         borderRadius:"20px",
                                                         marginTop:"24px",
                                                     }}
-                                                    defaultValue="defaultValue"
+                                                    
+                                                    value={season}
                                                     onChange={async (e)=>{
                                                         activePlayer?.pause()
                                                         if (e.target.value != "defaultValue"){
@@ -414,12 +438,13 @@ export default function ListSound (props: IAppProps) {
                                                                 setLoadingEpisodes(true)
                                                             }
                                                         } else {
+                                                            setSeason("defaultValue")
                                                             setLoadingEpisodes(true)
                                                             setFilmDetails([])
                                                         }
                                                     }}
                                                     >   
-                                                        <MenuItem value={`defaultValue`}>Select Season</MenuItem>
+                                                        <MenuItem value="defaultValue">Select Season</MenuItem>
                                                         {seasons.map((el,index)=>(
                                                             <MenuItem value={el.slug}>{el.name}</MenuItem>
                                                         ))}
@@ -445,7 +470,7 @@ export default function ListSound (props: IAppProps) {
                                                 marginTop:"24px",
                                                 maxWidth:"210px"
                                             }}
-                                            defaultValue="defaultValue"
+                                            defaultValue={episodes[0] ? episodes[0].slug : "defaultValue"}
                                             onChange={async (e)=>{
                                                 activePlayer?.pause()
                                                 if (e.target.value != "defaultValue"){
