@@ -77,3 +77,10 @@
     filter: blur(1.5px);
     background-repeat: none;
 }
+.textDes{
+    overflow-y: hidden;
+    display: -webkit-box;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 9;
+}

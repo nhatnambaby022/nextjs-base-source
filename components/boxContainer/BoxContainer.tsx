@@ -71,11 +71,11 @@ const MyFilm:React.FC<{tag:Tag, isFirst:boolean}> = ({tag,isFirst}) =>{
         }}>
           {`${tag.soundtrack_count} songs`}
         </div>
-        <div style={{
+        <div className={style.textDes} style={{
           fontSize:"12px",
           paddingTop:"10px"
-        }}>
-          {tag.slug}
+        }} >
+          {tag.description}
         </div>
       </div>
       <Link href={`/sound/${tag.slug}`}><button style={{
