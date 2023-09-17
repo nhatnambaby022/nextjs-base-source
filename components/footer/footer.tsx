@@ -82,7 +82,7 @@ export default function Footer (props: IAppProps) {
                             display:"flex",
                             alignItems:"center"
                         }}>
-                            <img src="logo_fb.png" height="30px"style={{
+                            <img src="/logo_fb.png" height="30px"style={{
                                 borderRadius:"6px",
                                 marginRight:"8px"
                             }}/> <p style={{height:"24px"}}>Facebook</p>
@@ -97,7 +97,7 @@ export default function Footer (props: IAppProps) {
                             display:"flex",
                             alignItems:"center"
                         }}>
-                            <img src="logo_tw.png" height="30px" style={{
+                            <img src="/logo_tw.png" height="30px" style={{
                                 borderRadius:"6px",
                                 marginRight:"8px"
                             }}/> <p style={{height:"24px"}}>Twitter</p>
