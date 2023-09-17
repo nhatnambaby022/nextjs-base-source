@@ -37,6 +37,9 @@ async function generateSiteMap():Promise<string> {
      <url>
        <loc>https://popcornsound.com/search?q=</loc>
      </url>
+     <url>
+       <loc>https://popcornsound.com/contact</loc>
+     </url>
      ${films.map((film:Tag) => {
          return `
        <url>

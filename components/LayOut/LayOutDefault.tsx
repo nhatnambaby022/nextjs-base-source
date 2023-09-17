@@ -356,7 +356,7 @@ export default function LayOutDefault(props: myprops) {
         overflow:"revert",
         padding:"0px"
       }}>
-        <DrawerHeader style={{height:"80px"}}/>
+        <DrawerHeader style={{height:"120px"}}/>
         {props.child}
       </Main>
     </Box>

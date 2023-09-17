@@ -47,7 +47,13 @@ export default function Footer (props: IAppProps) {
                         fontSize:"16px",
                         fontStyle:"italic",
                         color:"rgba(177, 177, 177, 1)"
-                    }}><Link style={{textDecoration:"underline 2px"}} href="/privacy">Privacy</Link> or <Link style={{textDecoration:"underline 2px"}} href="/terms">Terms</Link></span>
+                    }}>
+                        <Link style={{textDecoration:"underline 2px"}} href="/privacy">Privacy</Link>
+                        <span>, </span>
+                        <Link style={{textDecoration:"underline 2px"}} href="/terms">Terms</Link>
+                        <span> or </span>
+                        <Link style={{textDecoration:"underline 2px"}} href="/contact">Contact Us</Link>
+                    </span>
                      
                 </div>
             </div>
@@ -55,13 +61,47 @@ export default function Footer (props: IAppProps) {
 
             }} >
                 <div>
-                    <div style={{fontSize:"20px"}}>You can download our app</div>
+                    <div>You can download our app</div>
                     <div style={{
                         display:"flex",
-                        marginTop:"12px"
-                    }}>
-                        <Button style={{backgroundColor:"rgba(33, 33, 33, 1)",marginRight:"6px"}}><img src='/chplay.png'/></Button>
+                    }}> 
+                        <Link href="https://play.google.com/store/apps/details?id=com.popcorn.soundtrack&pcampaignid=web_share" target="_blank">
+                            <Button style={{backgroundColor:"rgba(33, 33, 33, 1)",marginRight:"6px"}}><img src='/chplay.png'/></Button>
+                        </Link>
                         <Button style={{backgroundColor:"rgba(33, 33, 33, 1)"}}><img src='/apple_store.png'/></Button>
+                    </div>
+                    <div style={{
+                        marginTop:"10px"
+                    }}>Follow us in:</div>
+                    <div style={{
+                        display:"flex",
+                        justifyContent:"space-around"
+                    }}> 
+                        <Link href="https://www.facebook.com/profile.php?id=61551096965084" target="_blank" style={{
+                            height:"30px",
+                            display:"flex",
+                            alignItems:"center"
+                        }}>
+                            <img src="logo_fb.png" height="30px"style={{
+                                borderRadius:"6px",
+                                marginRight:"8px"
+                            }}/> <p style={{height:"24px"}}>Facebook</p>
+                        </Link>
+                        <span style={{
+                            fontSize:"16px",
+                            fontStyle:"italic",
+                            color:"rgba(177, 177, 177, 1)"
+                        }}>or</span>
+                        <Link href="https://twitter.com/popcorn_sound" target="_blank"style={{
+                            height:"30px",
+                            display:"flex",
+                            alignItems:"center"
+                        }}>
+                            <img src="logo_tw.png" height="30px" style={{
+                                borderRadius:"6px",
+                                marginRight:"8px"
+                            }}/> <p style={{height:"24px"}}>Twitter</p>
+                        </Link>
                     </div>
                 </div>
             </div>
