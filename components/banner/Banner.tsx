@@ -75,7 +75,9 @@ const Banner: React.FC<BannerProps> = ({ listData }) => {
           </div>
           <div className={style.imgBefore}></div>
             <img
-              style={{objectFit:"contain"}}
+              style={{
+                objectFit:"contain",
+              }}
               className={style.img}
               src={banImgs[active] ? banImgs[active].backdrop : ""}
               alt={`Banner ${active}`}
