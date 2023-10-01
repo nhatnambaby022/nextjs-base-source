@@ -126,7 +126,7 @@ export default function BoxList (props: IAppProps) {
                 <hr style={{margin: "20px 0px", borderColor : "#525252"}}/>
                 <div style={{
                     width:"fit-content",
-                    maxWidth:"1260px",
+                    maxWidth:"1100px",
                     display:"flex",
                     flexDirection:"column",
                     justifyContent:"center",

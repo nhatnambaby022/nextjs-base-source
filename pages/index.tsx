@@ -20,7 +20,8 @@ export interface Tag{
   author?:string,
   type?:number,
   description?:string,
-  backdrop?:string
+  backdrop?:string,
+  themoivedb_id?:string, 
 }
 function Container(){
 
