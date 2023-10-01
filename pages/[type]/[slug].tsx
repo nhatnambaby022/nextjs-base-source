@@ -143,6 +143,7 @@ const  Container:React.FC<MyComponentProps> = ({tag})=>{
         }}>
             <ListSound playlist={tag}/>
             <BoxContainer isFilm={true} title="Popular movies" list={listFilmPopular}/>
+            <div style={{height: "20px"}}></div>
         </div>
     </div>
   )
