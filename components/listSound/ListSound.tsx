@@ -30,6 +30,7 @@ import getEpisodes from '@/api/getEpisodes'
 import getShowDetails from '@/api/getShowDetails'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
+import DisabledByDefaultIcon from '@mui/icons-material/DisabledByDefault'
 import getMovie from '@/api/themoviedb_api/getMovie'
 
 export interface IAppProps {
@@ -62,6 +63,58 @@ export interface audioDetails {
   spotify_link: string
   apple_link: string
 }
+import YouTube, { YouTubeProps } from 'react-youtube';
+
+interface youtubeParams{
+    isShow: boolean,
+    id_video: string,
+    setOpenYT:Function
+}
+function YoutubeIfram({isShow,id_video,setOpenYT}:youtubeParams){
+  const onPlayerReady: YouTubeProps['onReady'] = (event) => {
+    // access to player in all event handlers via event.target
+    event.target.playVideo();
+  }
+
+  const opts: YouTubeProps['opts'] = {
+    height: '100%',
+    width: '100%',
+    playerVars: {
+      // https://developers.google.com/youtube/player_parameters
+      autoplay: 1,
+    },
+  };
+  if (!isShow){
+    return <></>
+  }
+  return <div  style={{
+        bottom:10,
+        right:10,
+        position:"fixed",
+        display:"flex", 
+        justifyContent:"center", 
+        alignItems:"flex-start",
+        zIndex:1000,
+        flexDirection:"column",
+        marginLeft:"10px"
+    }}>
+        <IconButton style={{
+            margin:"0px 0px -20px -20px"
+        }}
+            onClick={()=>{
+                setOpenYT(false)
+            }}
+        >
+            <DisabledByDefaultIcon color="primary"></DisabledByDefaultIcon>
+        </IconButton>
+        <YouTube videoId={id_video} opts={opts}  onReady={onPlayerReady} style={{
+            height:"40vh",
+            maxHeight:"500px",
+            width:"calc(100vw - 20px)",
+            maxWidth:"640px"
+        }}/>
+    </div>;
+}
 
 interface SoundDetails {}
 
@@ -69,7 +122,9 @@ interface AudioPlayerProps {
   src: string
   onPlay: (e: HTMLAudioElement | null) => void
   audio?: audioDetails
-  i: number
+  i: number,
+  setOpenYT:Function,
+    setIdYT:Function
 }
 
 interface MediaControlProp {
@@ -81,7 +136,10 @@ interface MediaControlProp {
   audio?: audioDetails
   setCurrentTime: (time: number | number[]) => void
   durationTime: number
-  i: number
+  i: number,
+  disabled:boolean,
+    setOpenYT:Function,
+    setIdYT:Function
 }
 
 export const MediaControlCard: React.FC<MediaControlProp> = ({
@@ -91,7 +149,8 @@ export const MediaControlCard: React.FC<MediaControlProp> = ({
   audio,
   setCurrentTime,
   durationTime,
-  i
+  i,disabled
+  ,setOpenYT,setIdYT
 }) => {
   const theme = useTheme()
   const currentTime = time * durationTime
@@ -99,6 +158,13 @@ export const MediaControlCard: React.FC<MediaControlProp> = ({
   const se = Math.floor(currentTime % 60)
   const mimax = Math.floor(durationTime / 60)
   const semax = Math.floor(durationTime % 60)
+  const [idYTTmp,setIdYTTmp] = React.useState<string | null>(null)
+  React.useEffect(()=>{
+      const ytLink = audio?.youtube_link ? audio?.youtube_link : ""
+      // const ytLink = "https://www.youtube.com/watch?v=tiLi9OqxuGQ"
+      const urlYT = new URL(ytLink)
+      setIdYTTmp(urlYT.searchParams.get("v"))
+  },[audio])
   return (
     <Card
       sx={{
@@ -258,15 +324,19 @@ export const MediaControlCard: React.FC<MediaControlProp> = ({
               }}
               className={style.dropdownLink}
             >
-              <a href={audio?.youtube_link} target="_blank">
-                <IconButton>
-                  <img
-                    src="/youtube.png"
-                    alt="youtube"
-                    className={style.icon_link}
-                  />
-                </IconButton>
-              </a>
+              {idYTTmp ? 
+                        <IconButton onClick={()=>{
+                            setIdYT(idYTTmp)
+                            setOpenYT(true)
+                        }}>
+                            <img src="/youtube.png" alt="youtube" className={style.icon_link}/>
+                        </IconButton> 
+                        :
+                        <a href={audio?.youtube_link} target="_blank">
+                            <IconButton>
+                                <img src="/youtube.png" alt="youtube" className={style.icon_link}/>
+                            </IconButton>
+                        </a>}
               <a href={audio?.spotify_link} target="_blank">
                 <IconButton>
                   <img
@@ -309,7 +379,7 @@ const darkTheme = createTheme({
     }
   }
 })
-const AudioPlayer: React.FC<AudioPlayerProps> = ({ src, onPlay, audio, i }) => {
+const AudioPlayer: React.FC<AudioPlayerProps> = ({ src, onPlay, audio, i ,setOpenYT, setIdYT}) => {
   const [isPlaying, setIsPlaying] = React.useState(false)
   // const [audioRef,setAudioRef] = React.useState<HTMLAudioElement>(null)
   let audioRef = React.createRef<HTMLAudioElement>()
@@ -371,6 +441,7 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({ src, onPlay, audio, i }) => {
           onTimeUpdate={() => setTimeInterval()}
         />
         <MediaControlCard
+        setIdYT={setIdYT} setOpenYT={setOpenYT}
           isPlaying={isPlaying}
           i={i}
           setPlaying={togglePlay}
@@ -378,6 +449,7 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({ src, onPlay, audio, i }) => {
           audio={audio}
           setCurrentTime={setCurrentTime}
           durationTime={duration}
+          disabled={src ? false : true}
         />
       </div>
     </ThemeProvider>
@@ -402,7 +474,9 @@ export default function ListSound(props: IAppProps) {
   const [listAudioElm, setListAudioElm] = React.useState<
     HTMLAudioElement | null[]
   >([])
-  const [season, setSeason] = React.useState<string>('defaultValue')
+  const [season, setSeason] = React.useState<string>()
+  const [openYoutube,setOpenYoutube] = React.useState<boolean>(false)
+  const [idYoutube,setIdYoutube] = React.useState<string>("")
 
   const [seasons, setSeasons] = React.useState<season[]>([])
   const [isLoadingSeasons, setLoadingSeasons] = React.useState(true)
@@ -424,10 +498,31 @@ export default function ListSound(props: IAppProps) {
     if (playlist.type == 1) {
       const response = await getSeasons(playlist.slug)
       if (response.status == 200) {
-        console.log('Go1')
         setLoadingSeasons(false)
         setSeasons(response.data)
         setIsLoading(false)
+        const season = response.data[0].slug
+                setSeason(response.data[0].slug)
+                if (season){
+                    const episodeRes = await getEpisodes(playlist.slug,season)
+                    if (episodeRes.status == 200){
+                        setEpisodes(episodeRes.data)
+                        setLoadingEpisodes(false)
+                        const episode = episodeRes.data[0].slug
+                        if (episode) {
+                            const showDetailsRes = await getShowDetails(playlist.slug,episode)
+                            if (showDetailsRes.status == 200){
+                                setFilmDetails(showDetailsRes.data)
+                                setIsLoading(false)
+                            } else {
+                                setFilmDetails([])
+                                setIsLoading(false)
+                                
+                            }
+                        }
+                    }
+                    
+                }
         const thMovDBRes = await getMovie(props.playlist.themoivedb_id)
         if (thMovDBRes.status == 200) {
           console.log(thMovDBRes.data)
@@ -646,7 +741,7 @@ export default function ListSound(props: IAppProps) {
                               borderRadius: '20px',
                               marginTop: '24px'
                             }}
-                            defaultValue="defaultValue"
+                            value={season}
                             onChange={async (e) => {
                               activePlayer?.pause()
                               if (e.target.value != 'defaultValue') {
@@ -662,6 +757,7 @@ export default function ListSound(props: IAppProps) {
                                   setLoadingEpisodes(true)
                                 }
                               } else {
+                                setSeason("defaultValue")
                                 setLoadingEpisodes(true)
                                 setFilmDetails([])
                               }
@@ -698,7 +794,7 @@ export default function ListSound(props: IAppProps) {
                               marginTop: '24px',
                               maxWidth: '210px'
                             }}
-                            defaultValue="defaultValue"
+                            defaultValue={episodes[0] ? episodes[0].slug : "defaultValue"}
                             onChange={async (e) => {
                               activePlayer?.pause()
                               if (e.target.value != 'defaultValue') {
@@ -777,6 +873,8 @@ export default function ListSound(props: IAppProps) {
                       src={el.itune_link}
                       audio={el}
                       onPlay={handlePlay}
+                      setOpenYT={setOpenYoutube}
+                      setIdYT={setIdYoutube}
                     />
                   </>
                 )
@@ -826,6 +924,7 @@ export default function ListSound(props: IAppProps) {
             </ThemeProvider>
         </div>
     </div> */}
+    <YoutubeIfram id_video={idYoutube} isShow={openYoutube} setOpenYT={setOpenYoutube}/>
       </ThemeProvider>
     </>
   )

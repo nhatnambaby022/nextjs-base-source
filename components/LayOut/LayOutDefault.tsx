@@ -164,7 +164,7 @@ export default function LayOutDefault(props: myprops) {
     }}>
       <CssBaseline />
       <ThemeProvider theme={darkTheme}>
-        <AppBar position="fixed" open={open}>
+        <AppBar position="fixed" open={open} sx={{paddingRight:"0px !important"}}>
           <Toolbar style={{
             display:"flex",
             justifyContent:"space-between",
@@ -353,8 +353,9 @@ export default function LayOutDefault(props: myprops) {
         backgroundColor: style.BGColorBody,
         position:"relative",
         overflow:"revert",
+        padding:"0px"
       }}>
-        <DrawerHeader style={{height:"80px"}}/>
+        <DrawerHeader style={{height:"120px"}}/>
         {props.child}
       </Main>
     </Box>

@@ -6,9 +6,15 @@ $SizeMobileX:88vw;
 .tagMobile{
     width: 200px;
 }
+.layOutTag{
+    margin:0px 20px 20px 0px;
+}
 @media only screen and (max-width: 515px) {
     .tagMobile{
         width: $SizeMobileX;
+    }
+    .layOutTag{
+        margin:0px 0px 20px 0px;
     }
 }
 

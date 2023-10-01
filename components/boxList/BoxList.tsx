@@ -20,8 +20,7 @@ export interface IAppProps {
 const Item: React.FC<{tag:Tag}> = ({tag}) =>{
     return (<>
     <Link href={`/sound/${tag.slug}`}>
-        <div style={{
-            margin:"0px 20px 20px 0px",
+        <div className={style.layOutTag} style={{
             display:"flex",
             flexDirection:"column",
             width: "30%"
@@ -118,7 +117,7 @@ export default function BoxList (props: IAppProps) {
     return (
         <ThemeProvider theme={darkTheme}>
             <div style={{
-                marginTop:"24px",
+                margin:"20px",
                 color:style.textColor,
             }}>
                 <hr style={{marginBottom: "20px", borderColor : "#525252"}}/>
