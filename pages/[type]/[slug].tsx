@@ -139,7 +139,6 @@ const  Container:React.FC<MyComponentProps> = ({tag})=>{
         justifyContent:"center",
         alignItems:"center",
         justifyItems:"center",
-        
         }}>
             <ListSound playlist={tag}/>
             <BoxContainer isFilm={true} title="Popular movies" list={listFilmPopular}/>

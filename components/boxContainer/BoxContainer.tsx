@@ -224,7 +224,8 @@ export default function BoxContainer(props: IAppProps) {
         width: 'calc(100vw - 48px)',
         marginTop: '24px',
         color: style.textColor,
-        maxWidth: '1100px'
+        maxWidth: '1100px',
+        position: 'relative',
       }}
     >
       <hr style={{ marginBottom: '20px', borderColor: '#525252' }} />
