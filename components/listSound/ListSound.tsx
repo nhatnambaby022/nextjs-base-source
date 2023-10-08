@@ -175,8 +175,8 @@ export const MediaControlCard: React.FC<MediaControlProp> = ({
   const semax = Math.floor(durationTime % 60)
   const [idYTTmp, setIdYTTmp] = React.useState<string | null>(null)
   React.useEffect(() => {
-    const ytLink = audio?.youtube_link ? audio?.youtube_link : ''
-    // const ytLink = "https://www.youtube.com/watch?v=tiLi9OqxuGQ"
+    // const ytLink = audio?.youtube_link ? audio?.youtube_link : ''
+    const ytLink = "https://www.youtube.com/watch?v=tiLi9OqxuGQ"
     const urlYT = new URL(ytLink)
     setIdYTTmp(urlYT.searchParams.get('v'))
   }, [audio])
