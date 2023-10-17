@@ -32,7 +32,7 @@ function Container(){
     const fetchDataFilmPopular = async ()=>{
       const response = await getFilmPopular();
       if (response.status == 200) {
-        setListFilmPopular(response.data.data)
+        setListFilmPopular(response.data)
         setIsLoading(false)
       }
       

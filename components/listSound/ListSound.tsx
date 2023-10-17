@@ -176,7 +176,7 @@ export const MediaControlCard: React.FC<MediaControlProp> = ({
   const [idYTTmp, setIdYTTmp] = React.useState<string | null>(null)
   React.useEffect(() => {
     // const ytLink = audio?.youtube_link ? audio?.youtube_link : ''
-    const ytLink = "https://www.youtube.com/watch?v=tiLi9OqxuGQ"
+    const ytLink = 'https://www.youtube.com/watch?v=tiLi9OqxuGQ'
     const urlYT = new URL(ytLink)
     setIdYTTmp(urlYT.searchParams.get('v'))
   }, [audio])
@@ -289,15 +289,30 @@ export const MediaControlCard: React.FC<MediaControlProp> = ({
           }}
           className={style.boxsIcon}
         >
-          <a href={audio?.youtube_link} target="_blank">
-            <IconButton>
+          {idYTTmp ? (
+            <IconButton
+              onClick={() => {
+                setIdYT(idYTTmp)
+                setOpenYT(true)
+              }}
+            >
               <img
                 src="/youtube.png"
                 alt="youtube"
                 className={style.icon_link}
               />
             </IconButton>
-          </a>
+          ) : (
+            <a href={audio?.youtube_link} target="_blank">
+              <IconButton>
+                <img
+                  src="/youtube.png"
+                  alt="youtube"
+                  className={style.icon_link}
+                />
+              </IconButton>
+            </a>
+          )}
           <a href={audio?.spotify_link} target="_blank">
             <IconButton>
               <img
@@ -353,15 +368,16 @@ export const MediaControlCard: React.FC<MediaControlProp> = ({
                   />
                 </IconButton>
               ) : (
-                <a href={audio?.youtube_link} target="_blank">
-                  <IconButton>
-                    <img
-                      src="/youtube.png"
-                      alt="youtube"
-                      className={style.icon_link}
-                    />
-                  </IconButton>
-                </a>
+                <span>Link</span>
+                // <a href={audio?.youtube_link} target="_blank">
+                //   <IconButton>
+                //     <img
+                //       src="/youtube.png"
+                //       alt="youtube"
+                //       className={style.icon_link}
+                //     />
+                //   </IconButton>
+                // </a>
               )}
               <a href={audio?.spotify_link} target="_blank">
                 <IconButton>
@@ -525,6 +541,7 @@ export default function ListSound(props: IAppProps) {
   }
   const playlist = props.playlist
   const fetchData = async () => {
+    console.log(playlist)
     try {
       setFilmDetails([])
       setLoadingSeasons(true)

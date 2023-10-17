@@ -152,7 +152,7 @@ export default function LayOutDefault(props: myprops) {
       if (!key) return;
       const response = await searchFilm(key);
       if (response.status == 200){
-        setFilms(response.data)
+        setFilms(response.data.data)
       }
     }
   }

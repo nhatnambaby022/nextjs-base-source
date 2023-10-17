@@ -70,7 +70,7 @@ export default function BoxList (props: IAppProps) {
     const [isLoading, setIsLoading] = React.useState(true);
     const [listFilm, setListFilm] = React.useState({
         data: [],
-        last_page:0
+        total_pages:0
     });
     let callGetListAPI = getListShows
     if (props.type == "movies") {
@@ -92,7 +92,7 @@ export default function BoxList (props: IAppProps) {
       if (props.type=="all" && props.keySearch){
         const response = await searchFilm(props.keySearch);
         if (response.status == 200) {
-            setListFilm({data:response.data, last_page:0})
+            setListFilm({data: response.data.data, total_pages: 0})
             setIsLoading(false)
         }
       } else {
@@ -139,12 +139,12 @@ export default function BoxList (props: IAppProps) {
                         justifyContent:"center"
                     }}>
                         {
-                            listFilm.data.map((item)=>
-                                     <Item tag={item}/>
+                            listFilm.data.map((item, index)=>
+                                     <Item tag={item} key={index}/>
                             )
                         }
                     </div>
-                    {props.hiddenPaging ? <></> : <Pagination count={listFilm.last_page} page={page}  color="secondary" style={{color:"white !important", marginTop: "10px"}} onChange={handleChange}/>}
+                    {props.hiddenPaging ? <></> : <Pagination count={listFilm.total_pages} page={page}  color="secondary" style={{color:"white !important", marginTop: "10px"}} onChange={handleChange}/>}
                 </div>
             </div>
         </ThemeProvider>

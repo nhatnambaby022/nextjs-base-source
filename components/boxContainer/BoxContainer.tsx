@@ -198,9 +198,9 @@ const ImageSlider: React.FC<listImage> = ({ list, isFilm }) => {
       <div className={style['slider-images']} ref={scrollContainer}>
         {list.map((item, index) =>
           isFilm ? (
-            <MyFilm tag={item} isFirst={index == 0} />
+            <MyFilm tag={item} isFirst={index == 0} key={index}/>
           ) : (
-            <MySound tag={item} isFirst={index == 0} />
+            <MySound tag={item} isFirst={index == 0} key={index}/>
           )
         )}
       </div>

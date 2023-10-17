@@ -25,20 +25,12 @@ function Container(){
     const fetchDataFilm = async ()=>{
       const response = await getListFilm();
       if (response.status == 200) {
-        setListFilm(response.data.data)
+        setListFilm(response.data)
         setIsLoading(false)
       }
       
     }
-    const fetchDataFilmPopular = async ()=>{
-      const response = await getFilmPopular();
-      if (response.status == 200) {
-        setListFilmPopular(response.data.data)
-        setIsLoading(false)
-      }
-      
-    }
-
+    
     React.useEffect(()=>{
       const urlParams = new URL(window.location.href)
       const key = urlParams.searchParams.get("q")
@@ -50,7 +42,6 @@ function Container(){
       }
       router.events.on("routeChangeComplete",onChangeParam)
       fetchDataFilm()
-      fetchDataFilmPopular()
     },[])
 
     if (isLoading) {
