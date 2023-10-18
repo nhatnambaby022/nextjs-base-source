@@ -67,6 +67,7 @@ export interface audioDetails {
   apple_link: string
 }
 import YouTube, { YouTubeProps } from 'react-youtube'
+import getSoundTracks from '@/api/getSoundTracks'
 
 interface youtubeParams {
   isShow: boolean
@@ -175,8 +176,8 @@ export const MediaControlCard: React.FC<MediaControlProp> = ({
   const semax = Math.floor(durationTime % 60)
   const [idYTTmp, setIdYTTmp] = React.useState<string | null>(null)
   React.useEffect(() => {
-    // const ytLink = audio?.youtube_link ? audio?.youtube_link : ''
-    const ytLink = 'https://www.youtube.com/watch?v=tiLi9OqxuGQ'
+    const ytLink = audio?.youtube_link ? audio?.youtube_link : ''
+    // const ytLink = 'https://www.youtube.com/watch?v=tiLi9OqxuGQ'
     const urlYT = new URL(ytLink)
     setIdYTTmp(urlYT.searchParams.get('v'))
   }, [audio])
@@ -541,7 +542,6 @@ export default function ListSound(props: IAppProps) {
   }
   const playlist = props.playlist
   const fetchData = async () => {
-    console.log(playlist)
     try {
       setFilmDetails([])
       setLoadingSeasons(true)
@@ -575,20 +575,18 @@ export default function ListSound(props: IAppProps) {
               }
             }
           }
-          const thMovDBRes = await getTV(props.playlist.themoivedb_id)
+          const thMovDBRes = await getTV(props.playlist.themoviedb_id)
           if (thMovDBRes.status == 200) {
-            console.log(thMovDBRes.data)
             setThMovDBData(thMovDBRes.data)
           }
         }
       } else {
-        const response = await getFilmBySlug(props.playlist.slug)
-        const thMovDBRes = await getMovie(props.playlist.themoivedb_id)
+        const response = await getSoundTracks(props.playlist.slug, '')
         if (response.status == 200) {
           setFilmDetails(response.data)
           setIsLoading(false)
+          const thMovDBRes = await getMovie(props.playlist.themoviedb_id)
           if (thMovDBRes.status == 200) {
-            console.log(thMovDBRes.data)
             setThMovDBData(thMovDBRes.data)
           }
         }
@@ -824,7 +822,9 @@ export default function ListSound(props: IAppProps) {
                                 Select Season
                               </MenuItem>
                               {seasons.map((el, index) => (
-                                <MenuItem value={el.slug}>{el.name}</MenuItem>
+                                <MenuItem key={index} value={el.slug}>
+                                  {el.name}
+                                </MenuItem>
                               ))}
                             </Select>
                           </div>
@@ -875,7 +875,7 @@ export default function ListSound(props: IAppProps) {
                                 Select Episode
                               </MenuItem>
                               {episodes.map((el, index) => (
-                                <MenuItem value={el.slug}>
+                                <MenuItem key={index} value={el.slug}>
                                   {`(${el.soundtrack_count}) `}
                                   {el.name}
                                 </MenuItem>
@@ -927,16 +927,15 @@ export default function ListSound(props: IAppProps) {
                 filmDetails.map((el, index) => {
                   const i = index
                   return (
-                    <>
-                      <AudioPlayer
-                        i={i}
-                        src={el.itune_link}
-                        audio={el}
-                        onPlay={handlePlay}
-                        setOpenYT={setOpenYoutube}
-                        setIdYT={setIdYoutube}
-                      />
-                    </>
+                    <AudioPlayer
+                      key={index}
+                      i={i}
+                      src={el.itune_link}
+                      audio={el}
+                      onPlay={handlePlay}
+                      setOpenYT={setOpenYoutube}
+                      setIdYT={setIdYoutube}
+                    />
                   )
                 })
               ) : (

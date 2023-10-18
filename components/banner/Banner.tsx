@@ -94,7 +94,7 @@ const Banner: React.FC<BannerProps> = ({ listData }) => {
       </div>
       <ul className={style.dots}>
         {banImgs.map((e, index) => {
-          return <li className={active == index ? style.active : ""}></li>;
+          return <li key={index} className={active == index ? style.active : ""}></li>;
         })}
       </ul>
     </div>

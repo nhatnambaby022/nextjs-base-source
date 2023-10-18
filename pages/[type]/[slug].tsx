@@ -4,7 +4,6 @@ import { CircularProgress } from '@mui/material'
 import * as React from 'react';
 import { useRouter } from 'next/router';
 import ListSound from '@/components/listSound/ListSound';
-import getFilmById from '@/api/getFilmById';
 import getFilmBySlug from '@/api/getFilmBySlug';
 import {Helmet} from "react-helmet";
 import BoxContainer from '@/components/boxContainer/BoxContainer';

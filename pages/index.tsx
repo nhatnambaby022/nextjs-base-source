@@ -23,7 +23,7 @@ export interface Tag{
   type?:number,
   description?:string,
   backdrop?:string,
-  themoivedb_id?:string, 
+  themoviedb_id?:string, 
 }
 function Container(){
 
