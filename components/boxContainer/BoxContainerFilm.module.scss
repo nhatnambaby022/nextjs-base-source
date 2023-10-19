@@ -13,12 +13,12 @@
 .slider-images {
     display: flex;
     overflow-x: auto;
-    border-radius: 16px;
     scroll-behavior: smooth;
     scroll-snap-type: x mandatory; 
 }
 
 .slider-images img {
+    border-radius: 10px;
     transition: opacity 0.3s ease-in-out;
 }
 

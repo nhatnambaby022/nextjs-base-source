@@ -11,7 +11,9 @@ import getListFilm from '@/api/getListFilm'
 import * as React from 'react';
 import getFilmNew from '@/api/getFilmNew'
 import getFilmPopular from '@/api/getFilmPopular'
+import getBanner from '@/api/getBanner'
 export interface Tag{
+  _id:string,
   id:string,
   name:string,
   thumbnail:string,
@@ -20,13 +22,15 @@ export interface Tag{
   author?:string,
   type?:number,
   description?:string,
-  backdrop?:string
+  backdrop?:string,
+  themoviedb_id?:string, 
 }
 function Container(){
 
   const [isLoading, setIsLoading] = React.useState(true);
   const [listFilm, setListFilm] = React.useState([]);
   const [listFilmNew, setListFilmNew] = React.useState([]); 
+  const [listBanner, setListBanner] = React.useState([]);
   const [listFilmPopular, setListFilmPopular] = React.useState([]); 
 
     const fetchDataFilm = async ()=>{
@@ -39,7 +43,7 @@ function Container(){
     const fetchDataFilmNew = async ()=>{
       const response = await getFilmNew();
       if (response.status == 200) {
-        setListFilmNew(response.data.data)
+        setListFilmNew(response.data)
         setIsLoading(false)
       }
       
@@ -47,7 +51,15 @@ function Container(){
     const fetchDataFilmPopular = async ()=>{
       const response = await getFilmPopular();
       if (response.status == 200) {
-        setListFilmPopular(response.data.data)
+        setListFilmPopular(response.data)
+        setIsLoading(false)
+      }
+      
+    }
+    const fetchDataBanner = async ()=>{
+      const response = await getBanner();
+      if (response.status == 200) {
+        setListBanner(response.data)
         setIsLoading(false)
       }
       
@@ -57,6 +69,7 @@ function Container(){
       fetchDataFilm()
       fetchDataFilmNew()
       fetchDataFilmPopular()
+      fetchDataBanner()
     },[])
 
     if (isLoading) {
@@ -76,7 +89,7 @@ function Container(){
       alignItems:"center",
       justifyItems:"center",
     }}>
-      <Banner listData={listFilmPopular}/>
+      <Banner listData={listBanner}/>
       <BoxContainer isFilm={true} title="New films" list={listFilmNew}/>
       <BoxList ListItems={listFilm} title="List films" type="movies"/>
       <BoxContainer isFilm={false} title="Popular films" list={listFilmPopular}/>

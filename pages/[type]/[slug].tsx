@@ -4,7 +4,7 @@ import { CircularProgress } from '@mui/material'
 import * as React from 'react';
 import { useRouter } from 'next/router';
 import ListSound from '@/components/listSound/ListSound';
-import getFilmById from '@/api/getFilmById';
+import getFilmBySlug from '@/api/getFilmBySlug';
 import {Helmet} from "react-helmet";
 import BoxContainer from '@/components/boxContainer/BoxContainer';
 import getFilmPopular from '@/api/getFilmPopular';
@@ -21,12 +21,13 @@ export const getServerSideProps: GetServerSideProps<MyPageProps> = async (contex
   const {slug} = context.query
   console.log(slug)
   let data:Tag = {
+    _id: "",
     id:"",
     name:"",
     thumbnail:"",
     soundtrack_count:0
   }
-  const response = await getFilmById(slug?.toString());
+  const response = await getFilmBySlug(slug?.toString());
   if (response.status == 200) {
     data = response.data
   }
@@ -111,7 +112,7 @@ const  Container:React.FC<MyComponentProps> = ({tag})=>{
     const fetchDataFilmPopular = async ()=>{
       const response = await getFilmPopular();
       if (response.status == 200) {
-        setListFilmPopular(response.data.data)
+        setListFilmPopular(response.data)
         setIsLoading(false)
       }
       
@@ -139,10 +140,10 @@ const  Container:React.FC<MyComponentProps> = ({tag})=>{
         justifyContent:"center",
         alignItems:"center",
         justifyItems:"center",
-        
         }}>
             <ListSound playlist={tag}/>
             <BoxContainer isFilm={true} title="Popular movies" list={listFilmPopular}/>
+            <div style={{height: "20px"}}></div>
         </div>
     </div>
   )

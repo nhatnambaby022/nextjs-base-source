@@ -1,4 +1,16 @@
 @import '../../styles/variables';
+.bodyPage{
+    background-color: #121212;
+    &::before {
+        content: "s";
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background: linear-gradient(to bottom, rgba(18,18,18,0.8) 0%, rgb(18,18,18) 100%);
+    }
+}
 .icon_link{
     height: 48px;
     width: 48px;
@@ -31,38 +43,43 @@
     width: 60% !important;
 }
 .listDetails{
-    font-size: 18px;
+    font-size: 0.9rem;
     font-weight: 100;
     font-style: normal;
     color: rgba(255, 255, 255, 0.7);
-    
 }
 .leftPoster{
     display: inline !important;
 }
 .textDes{
+    margin-top: 10px;
+    font-size: 1rem;
+    font-weight: 200;
     overflow-y: hidden;
     display: -webkit-box;
     text-overflow: ellipsis;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 4;
+    color: rgba(255, 255, 255, 0.7);
+    margin-top: "10px";
+    font-size: '1rem'
 }
-@media only screen and (max-width:1000px){
+@media only screen and (max-width:550px){
     .dropdownDetails{
         display:flex !important; 
     }
-    .boxsIcon{
-        display: none !important;
-    }
-}
-@media only screen and (max-width:550px){
     .slider{
         width: 100% !important;
     }
     .leftPoster{
         display: none !important;
     }
-    
+    .mainContent{
+        margin-left: 20px;
+    }
+    .boxsIcon{
+        display: none !important;
+    }
     
 }
 :export {
