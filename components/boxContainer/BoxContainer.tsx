@@ -128,7 +128,7 @@ const MySound: React.FC<{ tag: Tag; isFirst: boolean }> = ({
   isFirst
 }) => {
   return (
-    <>
+    <Link href={`/sound/${tag.slug}`}>
       <div
         style={{
           width: 165,
@@ -167,7 +167,7 @@ const MySound: React.FC<{ tag: Tag; isFirst: boolean }> = ({
           {tag.author ? tag.author : ''}
         </span>
       </div>
-    </>
+    </Link>
   )
 }
 
